@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"net/url"
 	"strconv"
 )
 
-func (s *parser) parseCourses(c *http.Client, icsid, career, term, subject string) ([]rowHeadS, error) {
+func (s *parser) parseCourses(icsid, career, term, subject, subj string) ([]rowHeadS, error) {
 	cols, width1, width2, width3 := "16", "1453", "803", "1315"
 	if career == "Postgraduate - Research" || career == "Postgraduate - Taught" {
 		cols, width1, width2, width3 = "15", "1408", "758", "1270"
@@ -325,7 +323,6 @@ nResubmit=0;
 	if err := s.spanErr("3"); err != nil {
 		return nil, fmt.Errorf("stateNum\n%v", err)
 	}
-	page := string(s.s)
 	if err := s.spanErr(beforeICSID); err != nil {
 		return nil, fmt.Errorf("beforeICSID\n%v", err)
 	}
@@ -412,21 +409,25 @@ nResubmit=0;
 		}
 	}
 	var ret []rowHeadS
-	var reserves [][2]int
+	group := ""
 	for row := 0; row < rows; row++ {
-		r, err := s.parseCourseRow(cols16, row)
+		r, err := s.parseCourseRow(cols16, row, subj, group)
 		if err != nil {
 			return nil, fmt.Errorf("%vth row\n%v", row, err)
 		}
 		switch r := r.(type) {
 		case rowHeadS:
 			ret = append(ret, r)
-			if r.reserves != nil {
-				reserves = append(reserves, [2]int{row, len(ret) - 1})
-			}
+			group = r.group
 		case rowBodyS:
+			if len(ret) == 0 {
+				return nil, fmt.Errorf("first rowBody")
+			}
 			ret[len(ret)-1].rowBody = append(ret[len(ret)-1].rowBody, r)
 		case rowFootS:
+			if len(ret) == 0 {
+				return nil, fmt.Errorf("first rowFoot")
+			}
 			o := ret[len(ret)-1].rowBody
 			o[len(o)-1].rowFoot = append(o[len(o)-1].rowFoot, r)
 		}
@@ -439,39 +440,6 @@ nResubmit=0;
 	}
 	if err := s.equalErr(last); err != nil {
 		return nil, fmt.Errorf("last\n%v", err)
-	}
-	for i, v := range reserves {
-		s, err := responseToParser(c.PostForm(cusis, url.Values{
-			"ICSID":    {icsid},
-			"ICAction": {`ENRL_CAP$` + strconv.Itoa(v[0])},
-		}))
-		if err != nil {
-			return nil, fmt.Errorf("post cap: %v", err)
-		}
-		o := ret[v[1]]
-		ret[v[1]].reserves, err = s.parseReserves(strconv.Itoa(i*2+4), icsid, o.code[:8]+o.rowBody[0].section, o.nbr, o.rowBody[0].component, o.title)
-		if err != nil {
-			return nil, fmt.Errorf("parseReserves %v\n%v", i, err)
-		}
-		if i == len(reserves)-1 {
-			break
-		}
-		s, err = responseToParser(c.PostForm(cusis, url.Values{
-			"ICSID":    {icsid},
-			"ICAction": {`CU_RC_TMSR801_SSR_PB_CLOSE$0`},
-		}))
-		if err != nil {
-			return nil, fmt.Errorf("post return: %v", err)
-		}
-		if err := s.spanErr(beforeStateNum); err != nil {
-			return nil, fmt.Errorf("page differ\n%v", err)
-		}
-		if err := s.spanErr(strconv.Itoa(i*2 + 5)); err != nil {
-			return nil, fmt.Errorf("page differ\n%v", err)
-		}
-		if err := s.equalErr(page); err != nil {
-			return nil, fmt.Errorf("page differ\n%v", err)
-		}
 	}
 	return ret, nil
 }

@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
+func (s *parser) parseCourseRow(cols16 bool, row int, subj, group string) (interface{}, error) {
 	class := [2]string{
 		`class='PSLEVEL1GRIDODDROW'`,
 		`class='PSLEVEL1GRIDEVENROW'`,
@@ -35,7 +35,7 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 `
 	head := `<tr valign='center'>
 <td align='left'  ` + class + `  height='15'>
-<span  class='PSEDITBOX_DISPONLY' >`
+<span  class='PSEDITBOX_DISPONLY' >` + subj
 	code := `</span>
 </td>
 <td align='left'  ` + class + ` >
@@ -240,7 +240,7 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 		}
 		return nil
 	}
-	parseRowBody := func() error {
+	parseRowBody := func(group string) error {
 		if cols16 {
 			if err = s.spanErr(beforeVacancy); err != nil {
 				return err
@@ -257,6 +257,9 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 			return err
 		}
 		if rowBody.component, err = s.splitErr(component); err != nil {
+			return err
+		}
+		if err := s.spanErr(group); err != nil {
 			return err
 		}
 		if rowBody.section, err = s.splitErr(section); err != nil {
@@ -281,7 +284,10 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 		if err = s.spanErr(head); err != nil {
 			return err
 		}
-		if rowHead.code, err = s.splitErr(code); err != nil {
+		if rowHead.code, err = s.takeErr(4); err != nil {
+			return err
+		}
+		if rowHead.group, err = s.splitErr(code); err != nil {
 			return err
 		}
 		if rowHead.nbr, err = s.takeErr(4); err != nil {
@@ -313,7 +319,24 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 		if rowHead.units, err = s.splitErr(units); err != nil {
 			return err
 		}
-		if rowHead.teachers, err = s.splitErr(teachers); err != nil {
+		if ts, err := s.splitErr(teachers); err == nil {
+			for _, t := range strings.Split(ts, `<br />`) {
+				t = strings.TrimSpace(t)
+				if t == `-` {
+					continue
+				}
+				if !strings.HasPrefix(t, `- `) {
+					return fmt.Errorf(
+						"mismatch teacher\n%v %v\n%v",
+						[]byte(`- `),
+						[]byte(t),
+						rowHead.teachers,
+					)
+				}
+				t = t[2:]
+				rowHead.teachers = append(rowHead.teachers, t)
+			}
+		} else {
 			return err
 		}
 		if s.span(beforeQuota1) {
@@ -330,7 +353,7 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 				if rowBody.quota, err = strconv.Atoi(t); err != nil {
 					return err
 				}
-				rowHead.reserves = []reserveS{}
+				rowHead.reserves = true
 			} else {
 				return err
 
@@ -338,10 +361,11 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 		} else {
 			return err
 		}
-		if err = parseRowBody(); err != nil {
+		if err = parseRowBody(rowHead.group); err != nil {
 			return fmt.Errorf("parseRowBody\n%v", err)
 		}
 		rowHead.rowBody = []rowBodyS{rowBody}
+		rowHead.row = row
 		return nil
 	}
 	if s.span(emptyRowHead) {
@@ -350,7 +374,7 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 				return nil, fmt.Errorf("parseRowFoot\n%v", err)
 			}
 			if err = s.spanErr(emptyDept); err != nil {
-				return nil, fmt.Errorf("emptyRowToe\n%v", err)
+				return nil, fmt.Errorf("emptyDeptn%v", err)
 			}
 			return rowFoot, nil
 		}
@@ -364,7 +388,7 @@ func (s *parser) parseCourseRow(cols16 bool, row int) (interface{}, error) {
 		} else {
 			return nil, fmt.Errorf("quota1\n%v", err)
 		}
-		if err = parseRowBody(); err != nil {
+		if err = parseRowBody(group); err != nil {
 			return nil, fmt.Errorf("parseRowBody\n%v", err)
 		}
 		return rowBody, nil

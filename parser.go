@@ -68,7 +68,10 @@ func (s *parser) spanLastErr(t string) error {
 	return nil
 }
 
-func (s *parser) splitErr(t string) (string, error) {
+func (s *parser) index(t string) int {
+	if len(t) > len(s.s) {
+		return -1
+	}
 	for i := range s.s[:len(s.s)-len(t)+1] {
 		found := true
 		for j, v := range s.s[i : i+len(t)] {
@@ -78,12 +81,31 @@ func (s *parser) splitErr(t string) (string, error) {
 			}
 		}
 		if found {
-			ret := string(s.s[:i])
-			s.s = s.s[i+len(t):]
-			return ret, nil
+			return i
 		}
 	}
-	return "", errors.New(s.diff(t))
+	return -1
+}
+
+func (s *parser) splitErr(t string) (string, error) {
+	i := s.index(t)
+	if i != -1 {
+		ret := string(s.s[:i])
+		s.s = s.s[i+len(t):]
+		return ret, nil
+	}
+	l, r := 0, len(t)
+	for l+1 < r {
+		m := (l + r) / 2
+		i := s.index(t[:m])
+		if i == -1 {
+			r = m
+		} else {
+			l = m
+		}
+	}
+	i = s.index(t[:l])
+	return "", errors.New((&parser{s.s[i:]}).diff(t))
 }
 
 func (s *parser) equal(t string) bool {
@@ -126,30 +148,22 @@ func (s *parser) parseRows() (int, error) {
 }
 
 func (s *parser) diff(t string) string {
-	f := func(s string) string {
-		t := strings.SplitN(s, "\n", 6)
-		if len(t) == 6 {
-			t = t[:5]
-		}
-		return strings.Join(t, "\n")
-	}
-	err := ioutil.WriteFile("a.html", s.s, 0666)
+	err := ioutil.WriteFile("s.html", s.s, 0666)
 	if err != nil {
-		log.Printf("err writeFile: %v\n", err)
+		log.Printf("err writeFile s.html: %v\n", err)
 	}
-	for i, tv := range t {
-		sv, _ := utf8.DecodeRune(s.s[i:])
-		if tv != sv {
-			/*			x := `<<<---byte diff----
-						` + fmt.Sprintf("%v", []byte(f(string(s.s[i:])))) + `
-						===================
-						` + fmt.Sprintf("%v", []byte(f(t[i:]))) + `
-						------------>>>>>>>
-						`*/
+	err = ioutil.WriteFile("t.html", []byte(t), 0666)
+	if err != nil {
+		log.Printf("err writeFile t.html: %v\n", err)
+	}
+	ss := append(strings.Split(string(s.s), "\n"), "", "", "", "", "")
+	tt := append(strings.Split(t, "\n"), "", "", "", "", "")
+	for i, tv := range tt {
+		if tv != ss[i] {
 			return `<<<---diff---------
-` + f(string(s.s[i:])) + `
+` + strings.Join(ss[i:(i+6)], "\n") + `
 ===================
-` + f(t[i:]) + `
+` + strings.Join(tt[i:(i+6)], "\n") + `
 ------------>>>>>>>
 
 `

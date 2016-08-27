@@ -7,7 +7,7 @@ type careerS struct {
 
 type termS struct {
 	slug, en, ch string
-	classes      []int
+	groups       []int
 }
 
 type careerTermS struct {
@@ -21,35 +21,36 @@ type subjectS struct {
 	courses  []int
 }
 
+type courseS struct {
+	career  int
+	subject int
+	code    string
+	title   string
+	units   string
+	groups  []int
+}
+
+type groupS struct {
+	course   int
+	term     int
+	code     string
+	reserves []reserveS
+	classes  []int
+}
+
+type reserveS struct {
+	major  string
+	quota  int
+	enroll int
+}
+
 type teacherS struct {
 	name    string
 	classes []int
 }
 
-type courseS struct {
-	career   int
-	subject  int
-	code     string
-	title    string
-	units    string
-	reserves []reserveS
-	sections []int
-}
-
-type reserveS struct {
-	major         string
-	quota, enroll int
-}
-
-type sectionS struct {
-	course  int
-	code    string
-	classes []int
-}
-
 type classS struct {
-	term      int
-	course    int
+	group     int
 	nbr       string
 	quota     int
 	vacancy   int
@@ -58,7 +59,8 @@ type classS struct {
 	language  string
 	teachers  []int
 	meetings  []int
-	add, drop bool
+	add       bool
+	drop      bool
 	dept      string
 }
 
@@ -75,8 +77,9 @@ type databaseS struct {
 	careerTerms []careerTermS
 	latestTerms int
 	subjects    []subjectS
-	teachers    []teacherS
 	courses     []courseS
+	groups      []groupS
+	teachers    []teacherS
 	classes     []classS
 	meetings    []meetingS
 }
@@ -91,12 +94,14 @@ var db = databaseS{
 }
 
 type rowHeadS struct {
+	row      int
 	code     string
+	group    string
 	nbr      string
 	title    string
 	units    string
-	teachers string
-	reserves []reserveS
+	teachers []string
+	reserves bool
 	rowBody  []rowBodyS
 }
 
@@ -116,4 +121,47 @@ type rowFootS struct {
 	date   *string
 	add    bool
 	drop   bool
+}
+
+type courseDetailS struct {
+	title       string
+	units       string
+	grading     string
+	components  [][2]string
+	scheduled   bool
+	addConsent  string
+	dropConsent string
+	requirement string
+	attribute   string
+	description string
+}
+
+type courseMeetingS struct {
+	day     int
+	start   string
+	end     string
+	room    string
+	teacher string
+	dates   string
+}
+
+type courseSectionS struct {
+	section  string
+	status   int
+	meetings []courseMeetingS
+}
+
+type courseSectionsS struct {
+	terms    [][2]string
+	term     int
+	sections []courseSectionS
+	more     bool
+}
+
+type fragmentS struct {
+	course   []courseS
+	groups   []groupS
+	teachers []teacherS
+	classes  []classS
+	meetings []meetingS
 }

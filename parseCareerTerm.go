@@ -5,11 +5,11 @@ import (
 	"strings"
 )
 
-func toCareerOption(selected string, options []careerS) string {
+func toCareerOption(selected int, options []careerS) string {
 	var ret []string
-	for _, v := range options {
+	for i, v := range options {
 		s := `">`
-		if v.slug == selected {
+		if i == selected {
 			s = `" selected='selected'>`
 		}
 		ret = append(ret, `<option value="`+v.slug+s+v.en+"</option>\n")
@@ -17,11 +17,11 @@ func toCareerOption(selected string, options []careerS) string {
 	return strings.Join(ret, "")
 }
 
-func toTermOption(selected string, options []termS) string {
+func toTermOption(selected int, options []termS) string {
 	var ret []string
-	for _, v := range options {
+	for i, v := range options {
 		s := `">`
-		if v.slug == selected {
+		if i == selected {
 			s = `" selected='selected'>`
 		}
 		ret = append(ret, `<option value="`+v.slug+s+v.en+"</option>\n")
@@ -391,7 +391,7 @@ nResubmit=0;
 	if err := s.spanErr(terms); err != nil {
 		return fmt.Errorf("terms\n%v", err)
 	}
-	if err := s.spanLastErr(last); err != nil {
+	if err := s.equalErr(last); err != nil {
 		return fmt.Errorf("last\n%v", err)
 	}
 	return nil
