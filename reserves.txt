@@ -1,0 +1,882 @@
+FO CULS &amp; RELS MAJOR &amp; MINOR 30 5
+FO CULS &amp; RELS MAJOR &amp; MINOR 30 7
+FO CULS &amp; RELS MAJOR &amp; MINOR 30 9
+FO CULS major and minor 20 10
+FO RELS major and minor 20 14
+FO RELS major and minor 20 18
+FO RELS major and minor 20 20
+FO RELS major and minor 25 11
+FO-CUMT Major and Minor 10 1
+FO-UG CHPR Major 10 0
+FO-UG CHPR Major 15 1
+FO-UG CHPR Major 25 0
+FO-UG CHPR Major 25 0
+FO-UG CHPR Major 25 0
+FO-UG CHPR Major 25 25
+FO-UG CHPR Major 25 25
+FO-UG CHPR Major 25 25
+FO-UG CHPR Major 25 25
+FO-UG CHPR Major 25 25
+FO-UG CHPR Major 25 5
+FO-UG ELEG Major (New Curriculum) 40 7
+FO-UG HIST Major Yr 1 (New Curr) 50 0
+FO-UG IERG Major, IERGN Minor, MAIEU, MIEGN and Potential Double Deg: BBA+ERG students 50 22
+FO-UG IERG Major, IERGN Minor, MAIEU, MIEGN and Potential Double Deg: BBA+ERG students 60 11
+FO-UG IERG Major, IERGN Minor, MAIEU, MIEGN and Potential Double Deg: BBA+ERG students 60 17
+FO-UG IERG Major, IERGN Minor, MAIEU, MIEGN and Potential Double Deg: BBA+ERG students 75 52
+FO-UG MEDU majors (New Curriculum). 200 2
+FO-UG MEDU majors (New Curriculum). 200 2
+FO-UG MEDU majors (New Curriculum). 230 2
+For BBBA students (Broad-based Admission: Insurance, Financial and Actuarial Analysis / Quantitative Finance) 50 0
+For BBBA students (Broad-based Admission: Insurance, Financial and Actuarial Analysis / Quantitative Finance) 50 0
+For BERGN students (Broad-based Admission: Engineering) 4 0
+For BERGN students (Broad-based Admission: Engineering) 4 0
+For BERGN students (Broad-based Admission: Engineering) 50 0
+For BERGN students (Broad-based Admission: Engineering) 50 0
+For BMEG (New Curriculum) Major students. 50 48
+For BMEG (New Curriculum) Major students. 70 37
+For BMEG (New Curriculum) Major students. 70 42
+For BMEG (New Curriculum) Major students. 70 45
+For BSCIN student (Broad-based Admission: Science) 20 0
+For BSCIN student (Broad-based Admission: Science) 20 1
+For BSCIN student (Broad-based Admission: Science) 25 0
+For BSCIN student (Broad-based Admission: Science) 25 0
+For BSCIN student (Broad-based Admission: Science) 25 0
+For BSCIN student (Broad-based Admission: Science) 30 0
+For BSCIN student (Broad-based Admission: Science) 30 0
+For BSCIN student (Broad-based Admission: Science) 30 1
+For BSCIN student (Broad-based Admission: Science) 8 0
+For BSCIN student (Broad-based Admission: Science) 8 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 10 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 11 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 11 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 12 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 12 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 23 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 23 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 23 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 25 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 38 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 60 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 7 0
+For BSSCN and MSSCN students (Broad-based Admission: Social Science) 8 0
+For CSCI Major and CENG Major. 80 22
+For EEENN majors, ENERN majors, BBA+ERG (New curriculum) students. 70 14
+For EEENN majors, ENERN majors, MAEGN majors, Minor in Energy Technology (new curriculum), BBA+ERG (new curriculum) students. 40 6
+For EEENN majors, ENERN majors, MAEGN majors, Minor in Energy Technology (new curriculum), BBA+ERG (new curriculum) students. 75 6
+For EEENN majors, ENERN majors, MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 105 95
+For EEENN majors, ENERN majors, MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 70 72
+For EEENN majors, ENERN majors, MAEGN majors, Minor in MAEG (new curriculum), Minor in Energy Technology (new curriculum), BBA+ERG (new curriculum) students. 75 66
+For ENER Major (New Curriculum), MAEG Major (New Curriculum), BBA+ERG double degree option (New Curriculum), ENGY Minor (New Curriculum) students. 70 51
+For ENERN majors, BBA+ERG double degree option (New Curriculum) students. 20 1
+For ENERN majors, BBA+ERG double degree option (New Curriculum) students. 60 19
+For English speaking students 10 10
+For English speaking students 2 0
+For English speaking students 2 0
+For English speaking students 2 0
+For English speaking students 2 1
+For English speaking students 2 1
+For English speaking students 2 1
+For English speaking students 2 2
+For English speaking students 2 2
+For English speaking students 2 2
+For English speaking students 2 2
+For English speaking students 3 0
+For English speaking students 3 0
+For English speaking students 3 3
+For English speaking students 4 4
+For English speaking students 4 4
+For HTMG majors (New Curriculum) 40 32
+For HTMG majors (New Curriculum) 40 32
+For IBBA (YABS) students only 10 6
+For IERG Major, MAIE Major, MIEG Major, IERG Minor and Potential Double Deg: BBA+ERG students. 125 95
+For IERG Major, MAIE Major, MIEG Major, IERG Minor and Potential Double Deg: BBA+ERG students. 50 39
+For IERG Major, MAIE Major, MIEG Major, IERG Minor and Potential Double Deg: BBA+ERG students. 60 11
+For IERG Major, MAIE Major, MIEG Major, IERG Minor and Potential Double Deg: BBA+ERG students. 60 8
+For IERG, MAIE and MIEGN Major students.
+For IERG Minor (Old Curriculum) students.
+For potential BBA+ERG double degree students. 110 92
+For IERG1, MAIE1, IERGN, MIEGN students, BBA+ERG (for old &amp; new curriculum), IERG minor (for old &amp; new curriculum) students. 45 7
+For LSED Year 1 Major students 10 0
+For MA Comparative &amp; Pub History 10 0
+For MA Comparative &amp; Pub History 10 0
+For MA Comparative &amp; Pub History 10 0
+For MA Comparative &amp; Pub History 10 0
+For MA Comparative &amp; Pub History 10 0
+For MA Comparative &amp; Pub History 10 0
+For MAEGN Major (New Curriculum) and Potential Double Deg: BBA+ERG students (New Curriculum). 150 89
+For MAEGN Major (New Curriculum) and Potential Double Deg: BBA+ERG students (New Curriculum). 20 0
+For MAEGN Major (New Curriculum) and Potential Double Deg: BBA+ERG students (New Curriculum). 45 45
+For MAEGN majors, ENERN majors, Minor in MAEG (new curriculum) students, BBA+ERG (new curriculum) students. 140 105
+For MAEGN majors, ENERN majors, Minor in MAEG (new curriculum) students, BBA+ERG (new curriculum) students. 50 32
+For MAEGN majors, ENERN majors, Minor in MAEG (new curriculum) students, BBA+ERG (new curriculum) students. 95 94
+For MAEGN majors, ENERN majors, and BBA+ERG (New curriculum) students. 175 119
+For MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 55 13
+For MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 55 9
+For MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 65 28
+For MAEGN majors, Minor in MAEG (new curriculum), BBA+ERG (new curriculum) students. 65 32
+For MAEGU Major (Old Curriculum) and Potential Double Deg: BBA+ERG students (Old Curriculum). 20 0
+For MAEGU Major (Old Curriculum) and Potential Double Deg: BBA+ERG students (Old Curriculum). 20 0
+For MEDM, MEDS and MEDU Major only. 1 0
+For MEDM, MEDS and MEDU Major only. 1 0
+For MEDM, MEDS and MEDU Major only. 1 1
+For MEDM, MEDS and MEDU Major only. 1 1
+For MEDM, MEDS and MEDU Major only. 10 0
+For MEDM, MEDS and MEDU Major only. 11 0
+For MEDM, MEDS and MEDU Major only. 16 3
+For MEDM, MEDS and MEDU Major only. 2 0
+For MEDM, MEDS and MEDU Major only. 2 1
+For MEDM, MEDS and MEDU Major only. 2 2
+For MEDM, MEDS and MEDU Major only. 3 2
+For MEDM, MEDS and MEDU Major only. 8 0
+For MEDM, MEDS and MEDU Major only. 8 0
+For NURS Major (New Curriculum). 210 0
+For NURS Major (New Curriculum). 215 10
+For NURS Major (Yr 3 entrants) 8 6
+For PGDE FT students only 10 10
+For PGDE FT students only 10 10
+For PGDE FT students only 10 10
+For PGDE PT students only 55 12
+For PGDE PT students only 55 28
+For PGDE PT students only 55 35
+For PGDP FT students 30 21
+For PGDP FT students 30 24
+For PGDP PT students 35 28
+For PGDP PT students 35 28
+For PHAR Major (New Curriculum) 55 0
+For PHAR Major (New Curriculum) 60 0
+For PHPC Major (New Curriculum). 35 1
+For PHPC Major (New Curriculum). 40 2
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 3 0
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 3 0
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 3 1
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 3 1
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 5 0
+For Potential Double Deg: ERG+BBA, LLB+BBA &amp; COM+BBA 5 1
+For SOCI Major, SOCI Minor or SORH Minor only. 10 10
+For SOCI Major, SOCI Minor or SORH Minor only. 10 8
+For SOCI Major, SOCI Minor or SORH Minor only. 15 15
+For SOCI Major, SOCI Minor or SORH Minor only. 20 10
+For SOCI Major, SOCI Minor or SORH Minor only. 20 10
+For SOCI Major, SOCI Minor or SORH Minor only. 20 14
+For SOCI Major, SOCI Minor or SORH Minor only. 20 5
+For SOCI Major, SOCI Minor or SORH Minor only. 30 12
+For SOCI Major, SOCI Minor or SORH Minor only. 30 16
+For SOCI Major, SOCI Minor or SORH Minor only. 30 17
+For SOCI Major, SOCI Minor or SORH Minor only. 30 17
+For SOCI Major, SOCI Minor or SORH Minor only. 30 6
+For SOCI Year 1 55 0
+For SOCI Year 2 10 4
+For SOCI Year 2 20 0
+For SOCI Year 2 20 15
+For SOCI Year 2 20 2
+For SOCI Year 2 20 20
+For SOCI Year 2 20 8
+For SOCI Year 2 50 47
+For SOCI Year 3 20 13
+For SOCI Year 3 20 2
+For SOCI Year 3 20 5
+For SOCI Year 3 20 6
+For SOCI Year 3 50 29
+For SPED Minor and PESH Minor. 1 0
+For SPED Minor and PESH Minor. 4 0
+For SPED Minor and PESH Minor. 4 0
+For SPED Minor and PESH Minor. 5 0
+For SPED Minor and PESH Minor. 5 0
+For SPED Minor and PESH Minor. 7 0
+For SPED Minor and PESH Minor. 9 0
+For SPED Minor and PESH Minor. 9 0
+For TRAN Major, Minor and LLB-TRA students 35 35
+For Translation Major and Minor Students 25 14
+For Translation Major and Minor Students 25 18
+For Translation Major and Minor Students 30 18
+For Translation Major and Minor Students 30 24
+For Translation Major and Minor Students 35 26
+For UG ARCH Major 20 0
+For UG BCME Major (New Curriculum) 30 0
+For UG BCME Major (New Curriculum) 35 2
+For UG BMED Major 10 0
+For UG BMED Major 10 0
+For UG BMED Major 10 10
+For UG BMED Major 10 10
+For UG BMED Major 12 0
+For UG BMED Major 12 12
+For UG BMED Major 15 0
+For UG BMED Major 15 0
+For UG BMED Major 20 19
+For UG BMED Major 20 20
+For UG BMEG Major 45 0
+For UG BMEG Major 45 12
+For UG BMEG Major 45 18
+For UG BMEG Major 45 30
+For UG BMEG Major 45 32
+For UG BMEG Major 45 4
+For UG BMEG Major 45 7
+For UG BMEG Major 65 44
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMEG Minor 2 0
+For UG BMSC Major 40 0
+For UG BMSC Major 40 0
+For UG CCSSAN Major. 20 0
+For UG CCSSAN Major. 20 0
+For UG CENG Major 20 4
+For UG CENG Major 30 6
+For UG CHEM Major (New Curriculum). 30 13
+For UG CHEM Major (New Curriculum). 30 24
+For UG CHEM Major (New Curriculum). 30 24
+For UG CHEM Major (New Curriculum). 30 30
+For UG CHEM Major (New Curriculum). 50 47
+For UG CHEM Major (New Curriculum). 53 47
+For UG CHEM Major (New Curriculum). 55 41
+For UG CHEM Major (Old Curriculum). 2 1
+For UG CHEM Major (Old Curriculum). 2 1
+For UG CHEM Major (Old Curriculum). 2 1
+For UG CHEM Major (Old Curriculum). 2 1
+For UG CHEM Major (Old Curriculum). 3 2
+For UG CHES Major 3 1
+For UG CHES Major 5 0
+For UG CHLL Major 102 6
+For UG CHLL Major 103 91
+For UG CHLL Major 103 97
+For UG CHLL Major 28 27
+For UG CHLL Major 33 29
+For UG CHLL Major 33 29
+For UG CHLL Major 33 29
+For UG CHLL Major 35 35
+For UG CHLL Major 50 3
+For UG CHLL Major 50 33
+For UG CHLL Major 50 45
+For UG CHLL Major 50 50
+For UG CHLL Major 50 50
+For UG CHLL Major 50 50
+For UG CHLL Major 50 50
+For UG CHLL Major 68 24
+For UG CHLL Major 68 64
+For UG CHLL Major 96 4
+For UG CHLL Major 96 88
+For UG CHLL Major 96 88
+For UG CHLL Minor 2 0
+For UG CHLL Minor 2 1
+For UG CHLL Minor 2 1
+For UG CHLL Minor 2 2
+For UG CHLL Minor 3 0
+For UG CHLL Minor 4 2
+For UG CLED Major 22 0
+For UG CLED Major 22 0
+For UG CLED Major 24 0
+For UG CLED Major 24 14
+For UG CLED Major 24 15
+For UG CLED Major 24 21
+For UG CLED Major 24 24
+For UG CLED Major 24 4
+For UG CLED Major 24 9
+For UG CLED Major 30 7
+For UG CLED Major 33 31
+For UG CLED Major 38 34
+For UG COMM Major 12 12
+For UG COMM Major 20 20
+For UG COMM Major 30 6
+For UG COMM Major 40 9
+For UG CSCI Major 155 129
+For UG CULS Major 10 2
+For UG CULS Major 15 9
+For UG CULS Major 20 10
+For UG CULS Major 20 11
+For UG CULS Major 20 13
+For UG CULS Major 20 6
+For UG CULS Major 5 6
+For UG CUMS Major 18 16
+For UG CUMT &amp; CUMS Major 45 22
+For UG CUMT Major 10 7
+For UG CUMT Major 26 25
+For UG CUMT Major 30 2
+For UG ECON Major 100 33
+For UG ECON Major 120 39
+For UG ECON Major 30 6
+For UG ECON Major 40 29
+For UG ECON Major 45 14
+For UG ECON Major 5 1
+For UG ECON Major 50 1
+For UG ECON Major 50 22
+For UG ECON Major 60 11
+For UG ECON Major 60 17
+For UG ECON Major 60 2
+For UG ECON Major 60 20
+For UG ECON Major 60 27
+For UG ECON Major 60 3
+For UG ECON Major 60 6
+For UG ECON Major 70 18
+For UG ECON Major 70 25
+For UG ECON Major 70 46
+For UG ECON Major 70 47
+For UG ECON Major 70 7
+For UG ECON Major 80 10
+For UG ECON Major 80 21
+For UG ECON Major 80 21
+For UG ECON Major 80 23
+For UG ECON Major 80 28
+For UG ECON Major 80 29
+For UG ECON Major 80 33
+For UG ECON Major 80 52
+For UG ECON Major 80 55
+For UG ECON Major 80 61
+For UG ECON Major 90 42
+For UG ECON Minor 10 0
+For UG ECON Minor 10 0
+For UG ECON Minor 10 0
+For UG ECON Minor 10 0
+For UG ELEG Major 15 10
+For UG ELEG Major 35 18
+For UG ELEG Major 35 21
+For UG ELEG Major 45 11
+For UG ELEG Major 50 13
+For UG ELEG Major 50 15
+For UG ELEG Major 50 16
+For UG ELEG Major 50 19
+For UG ELEG Major 50 22
+For UG ELEG Major 50 33
+For UG ELEG Major 50 35
+For UG ELEG Major 65 23
+For UG ELEG Major 70 36
+For UG ELEG Major 80 32
+For UG ENSC Major 5 0
+For UG ENSC Major 5 1
+For UG ENSC Major 5 3
+For UG ESHE Major 20 20
+For UG ESHE Major 20 9
+For UG ESHE Major 35 1
+For UG FAAS Major 10 10
+For UG FAAS Major 15 9
+For UG FAAS Major 16 11
+For UG FAAS Major 16 11
+For UG FAAS Major 16 16
+For UG FAAS Major 16 5
+For UG FAAS Major 18 0
+For UG FAAS Major 18 0
+For UG FAAS Major 18 1
+For UG FAAS Major 18 1
+For UG FAAS Major 18 10
+For UG FAAS Major 18 15
+For UG FAAS Major 18 17
+For UG FAAS Major 18 18
+For UG FAAS Major 18 18
+For UG FAAS Major 18 9
+For UG FAAS Major 20 21
+For UG FAAS Major 35 10
+For UG FAAS Major 35 18
+For UG FAAS Major 35 19
+For UG FAAS Major 35 21
+For UG FAAS Major 35 23
+For UG FAAS Major 37 1
+For UG FAAS Major 9 9
+For UG FAAS Minor 2 0
+For UG FAAS Minor 2 1
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 2 2
+For UG FAAS Minor 5 3
+For UG FAAS Minor 5 4
+For UG FAAS Minor 5 4
+For UG GLBS Major 30 1
+For UG GLBS Major 30 1
+For UG GLBS Major 35 2
+For UG GLBS Major 38 36
+For UG GLEF Major 15 0
+For UG GLEF Major 15 1
+For UG GLEF Major 15 11
+For UG GLEF Major 15 15
+For UG GLEF Major 30 0
+For UG GLEF Major 30 27
+For UG GLEF Major 35 29
+For UG GLEF Major 5 3
+For UG HIST Major 25 0
+For UG HIST Major 35 1
+For UG HIST Major 35 12
+For UG HIST Major 35 20
+For UG HIST Major 35 22
+For UG HIST Major 35 23
+For UG HIST Major 35 26
+For UG HIST Major 35 33
+For UG HIST Major 35 35
+For UG HIST Major 35 35
+For UG HIST Major 35 35
+For UG HIST Major 35 35
+For UG HIST Major 35 35
+For UG HIST Major 35 35
+For UG HIST Major 35 4
+For UG HIST Major 35 7
+For UG HIST Major 75 10
+For UG HIST Major 80 9
+For UG HIST Minor 10 0
+For UG HIST Minor 10 2
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 0
+For UG HIST Minor 5 1
+For UG HIST Minor 5 1
+For UG HIST Minor 5 1
+For UG HIST Minor 5 1
+For UG HIST Minor 5 1
+For UG HIST Minor 5 1
+For UG HIST Minor 5 4
+For UG HIST Minor 5 5
+For UG HTMG Major 50 11
+For UG HTMG Major 50 18
+For UG HTMG Major 50 20
+For UG HTMG Major 50 24
+For UG HTMG Major 50 26
+For UG HTMG Major 50 32
+For UG HTMG Major 50 49
+For UG HTMG Major 50 50
+For UG HTMG Major 50 50
+For UG IERG, MAIE and MIEGN Major students. 5 0
+For UG IERG, MAIE and MIEGN Major students. 5 0
+For UG IFAA Major 40 33
+For UG IFAA Major 50 42
+For UG IFAA Major 70 53
+For UG LSED Major 20 2
+For UG MATH Major (New Curriculum). 50 41
+For UG MATH Major 10 10
+For UG MATH Major 15 14
+For UG MATH Major 15 8
+For UG MATH Major 20 20
+For UG MATH Major 25 21
+For UG MATH Major 30 30
+For UG MATH Major 32 0
+For UG MATH Major 32 0
+For UG MATH Major 35 35
+For UG MATH Major 40 30
+For UG MATH Major 40 35
+For UG MATH Major 40 40
+For UG MATH Major 40 40
+For UG MATH Major 45 10
+For UG MATH Major 45 36
+For UG MATH Major 50 26
+For UG MATH Major 50 27
+For UG MATH Major 50 30
+For UG MATH Major 50 33
+For UG MATH Major 50 50
+For UG MATH Major 55 54
+For UG MIEG Major 20 17
+For UG MIEG Major 8 0
+For UG MIEG Major 8 8
+For UG NSCI Major 12 0
+For UG NSCI Major 14 0
+For UG NSCI Major 15 5
+For UG NSCI Major 3 0
+For UG NSCI Major 3 0
+For UG NSCI Major 3 1
+For UG NSCI Major 3 2
+For UG NSCI Major 5 17
+For UG NSCI Major 5 2
+For UG NURS Major 11 0
+For UG NURS Major 16 16
+For UG NURS Major 2 1
+For UG NURS Major 2 1
+For UG NURS Major 2 2
+For UG NURS Major 3 0
+For UG NURS Major 3 3
+For UG NURS Major 3 3
+For UG NURS Major 3 3
+For UG NURS Major 4 1
+For UG NURS Major 4 4
+For UG NURS Major 4 4
+For UG NURS Major 4 4
+For UG NURS Major 4 4
+For UG NURS Major 5 0
+For UG NURS Major 5 0
+For UG NURS Major 5 1
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 5 5
+For UG NURS Major 6 0
+For UG NURS Major 6 6
+For UG NURS Major 7 3
+For UG NURS Major 8 0
+For UG NURS Major 8 5
+For UG PACC Major 35 22
+For UG PACC Major 35 35
+For UG PACC Major 40 32
+For UG PACC Major 40 40
+For UG PESH Major 20 22
+For UG PESH Major 5 5
+For UG PESH Major 5 5
+For UG PHPC Major 3 2
+For UG PHPC Major 30 16
+For UG PHPC Major 30 24
+For UG PHPC Major 30 30
+For UG PHPC Major 4 0
+For UG PHPC Major 40 23
+For UG PHPC Major 40 24
+For UG PHPC Major 40 25
+For UG PHPC Major 40 30
+For UG PHPC Major 40 33
+For UG PHPC Major 40 34
+For UG PHPC Major 40 34
+For UG PHPC Major 40 34
+For UG PHPC Major 40 35
+For UG PHPC Major 40 37
+For UG PHPC Minor 10 0
+For UG PHPC Minor 10 0
+For UG PHPC Minor 10 0
+For UG PHPC Minor 15 0
+For UG PHPC Minor 15 1
+For UG PHPC Minor 20 0
+For UG PHPC Minor 20 0
+For UG PHPC Minor 5 0
+For UG PHYS Major 15 0
+For UG PHYS Major 15 1
+For UG QFIN Major (New Curriculum). 25 10
+For UG QFIN Major 15 12
+For UG QFIN Major 5 4
+For UG QFIN Major 5 5
+For UG QFIN Major 9 8
+For UG QFRM Major (New Curriculum). 40 18
+For UG QFRM Major 10 1
+For UG QFRM Major 10 6
+For UG QFRM Major 30 0
+For UG QFRM Major 5 5
+For UG QFRM Major 5 5
+For UG QFRM Major 50 10
+For UG QFRM Major 7 5
+For UG RELS Major 10 10
+For UG RELS Major 15 12
+For UG RELS Major 15 14
+For UG RELS Major 20 15
+For UG RELS Major 20 4
+For UG RELS Major 20 9
+For UG RMSC Major (New Curriculum). 35 16
+For UG RMSC Major (New Curriculum). 35 23
+For UG RMSC Major (New Curriculum). 40 11
+For UG RMSC Major 10 3
+For UG RMSC Major 10 7
+For UG RMSC Major 15 0
+For UG RMSC Major 15 2
+For UG RMSC Major 35 0
+For UG RMSC Major 40 15
+For UG RMSC Major 5 0
+For UG RMSC Major 5 2
+For UG RMSC Major 7 7
+For UG STAT Major 65 57
+For UG THEO Major 5 0
+For UG TRAN Major 25 0
+For UG TRAN Major 25 4
+For UG URSP Major 25 4
+For Year 1 BMED Major (New Curriculum). 22 0
+For Year 1 CLED majors 22 0
+For Year 1 ESHE Major 15 0
+For Year 1 ESHE Major 35 0
+For Year 1 ESHE Major 35 0
+For Year 1 ESHE Major 35 0
+For Year 1 GPAD Majors. 10 0
+For Year 1 GPAD Majors. 20 0
+For Year 1 PESH Major. 20 0
+For Year 1 PESH Major. 23 0
+For Year 1 PESH Major. 23 0
+For Year 1 PHIL Major (New Curriculum). 35 0
+For Year 1 PHIL Major (New Curriculum). 35 0
+For Year 1 PHIL Major (New Curriculum). 8 0
+For Year 1 PHIL Major (New Curriculum). 8 0
+For Year 1 and Year 3 PESH Major. 24 1
+For Year 1 and Year 3 PESH Major. 24 1
+For Year 1 students of Faculty of Business Administration (New Curriculum) 20 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 25 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 30 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 40 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 41 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 46 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 5 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 5 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 5 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 50 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 50 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 1 students of Faculty of Business Administration (New Curriculum) 55 0
+For Year 2 &amp; above IBBA majors 25 11
+For Year 2 &amp; above IBBA majors 25 13
+For Year 2 &amp; above IBBA majors 25 25
+For Year 2 &amp; above IBBA majors 25 25
+For Year 2 9 0
+For Year 2 9 0
+For Year 2 9 1
+For Year 2 9 1
+For Year 2 9 1
+For Year 2 9 1
+For Year 2 9 1
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 2
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 3
+For Year 2 9 4
+For Year 2 9 4
+For Year 2 9 4
+For Year 2 9 4
+For Year 2 9 4
+For Year 2 9 5
+For Year 2 9 5
+For Year 2 9 5
+For Year 2 9 5
+For Year 2 9 6
+For Year 2 9 6
+For Year 2 9 6
+For Year 2 9 7
+For Year 2 9 7
+For Year 2 9 7
+For Year 2 9 8
+For Year 2 9 8
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 9 9
+For Year 2 ESHE Major 35 35
+For Year 2 GPAD Majors. 10 8
+For Year 2 GPAD Majors. 20 5
+For Year 2 PESH Major. 5 5
+For Year 2 PHIL Major (New Currciulum) 7 7
+For Year 2 and Year 3 ESHE Major. 35 36
+For Year 2 and Year 3 ESHE Major. 36 37
+For Year 2 or above ESHE Major 4 4
+For Year 2 or above ESHE Major 6 5
+For Year 2 or above Faculty of Science students (New Curriculum). 3 1
+For Year 2 or above Faculty of Science students (New Curriculum). 3 2
+For Year 2 or above Faculty of Science students (New Curriculum). 3 2
+For Year 2 or above Faculty of Science students (New Curriculum). 3 4
+For Year 2 or above Faculty of Science students (New Curriculum). 5 4
+For Year 2 or above Faculty of Science students (New Curriculum). 5 5
+For Year 2 or above Faculty of Science students (New Curriculum). 6 3
+For Year 2 students of Faculty of Business Administration (New Curriculum) 40 40
+For Year 2 students of Faculty of Business Administration (New Curriculum) 40 40
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 29
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 50 50
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 14
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 31
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 37
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 2 students of Faculty of Business Administration (New Curriculum) 55 55
+For Year 3 ESHE Major 1 1
+For Year 3 PESH Major. 20 18
+For Year 3 and Year 4 PESH Major. 21 18
+For Year 3 or above ENSC Major (New Curriculum) 3 1
+For Year 4 PESH Major. 21 5
+For Year 4 or above CHEM Major (New Curriculum) 48 20
+For Year 4 or above CHEM Major (New Curriculum) 55 19
+For Year 4 or above CHEM Major (New Curriculum) 57 39
+For Year 4 or above CHEM Major (New Curriculum) 63 13
+For Year 4 or above CHEM Major (New Curriculum) 63 6
+For Year 4 or above PESH Major. 22 21
+For Year 4 or above PESH Major. 24 17
+For Year 4 or above PESH Major. 24 5
+For Year 5 PESH Major. 21 21
+For Year 5 PESH Major. 21 21
+For students of Faculty of Arts. 60 60
+For students of Faculty of Business Administraion (New Curriculum). 15 15
+For students of Faculty of Business Administraion (New Curriculum). 15 15
+For students of Faculty of Business Administraion. 10 0
+For students of Faculty of Business Administraion. 10 0
+For students of Faculty of Business Administraion. 10 0
+For students of Faculty of Business Administraion. 10 0
+For students of Faculty of Business Administraion. 10 0
+For students of Faculty of Business Administraion. 10 1
+For students of Faculty of Business Administraion. 10 10
+For students of Faculty of Business Administraion. 10 10
+For students of Faculty of Business Administraion. 10 4
+For students of Faculty of Business Administraion. 30 12
+For students of Faculty of Business Administraion. 30 14
+For students of Faculty of Business Administraion. 30 22
+For students of Faculty of Business Administraion. 30 24
+For students of Faculty of Business Administraion. 30 26
+For students of Faculty of Business Administraion. 30 30
+For students of Faculty of Business Administraion. 40 12
+For students of Faculty of Business Administraion. 40 18
+For students of Faculty of Business Administraion. 40 21
+For students of Faculty of Business Administraion. 40 22
+For students of Faculty of Business Administraion. 40 24
+For students of Faculty of Business Administraion. 40 26
+For students of Faculty of Business Administraion. 40 27
+For students of Faculty of Business Administraion. 40 29
+For students of Faculty of Business Administraion. 40 31
+For students of Faculty of Business Administraion. 40 34
+For students of Faculty of Business Administraion. 40 37
+For students of Faculty of Business Administraion. 40 40
+For students of Faculty of Business Administraion. 40 40
+For students of Faculty of Business Administraion. 45 10
+For students of Faculty of Business Administraion. 45 12
+For students of Faculty of Business Administraion. 45 17
+For students of Faculty of Business Administraion. 45 29
+For students of Faculty of Business Administraion. 45 29
+For students of Faculty of Business Administraion. 45 35
+For students of Faculty of Business Administraion. 45 42
+For students of Faculty of Business Administraion. 55 55
+For students of Faculty of Business Administraion. 55 55
+For students of Faculty of Business Administraion. 55 55
+For students of Faculty of Engineering (New Curriculum). 15 15
+For students of Faculty of Science (New Curriculum). 135 8
+For year 1 ELED majors 19 0
+For year 1 Music majors 35 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 11 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 12 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 17 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 17 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 18 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 18 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 20 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 20 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 30 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 37 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 37 1
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 48 0
+For year 1 students (new curriculum) of Social Science Faculty (exclude Broad-based admission, Gender Studies &amp; Global Studies (2-year programme)) or Global Economics and Finance or Comtemporary China Studies. 8 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 0
+For year 1 students 9 1
+For year 1 students 9 1
+For year 1 students 9 1
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 2
+For year 1 students 9 3
+For year 1 students 9 3
+For year 2 Music majors 33 33
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 12 8
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 14 14
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 14 14
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 2 2
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 21 10
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 21 6
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 23 2
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 24 4
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 4 4
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 45 1
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 45 7
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 5 4
+For year 2 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 7 5
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 10 10
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 14 13
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 14 2
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 15 2
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 16 5
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 30 1
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 30 8
+For year 3 students (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies 9 5
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 15 2
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 15 2
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 4 4
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 6 6
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 7 0
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 7 3
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 7 4
+For year 4 students or above (new curriculum) of Social Science Faculty or Global Economics and Finance or Contemporary China Studies. 8 6

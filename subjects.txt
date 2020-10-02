@@ -1,0 +1,194 @@
+ACCT Accountancy
+ACPY Anatomical &amp; Cellular Patholog
+AENP Advanced Emergency Nursing Pra
+AEPT Adv Environmental Planning Tec
+ANIC Anaesthesia &amp; Intensive Care
+ANTH Anthropology
+ARAB Arabic
+ARCH Architectural Studies
+ARTS Courses offered by Arts Fac
+BASA General Business Administratio
+BBMS Biochemical &amp; Biomedical Sci
+BCHE Biochemistry
+BCME Chinese Medicine
+BIOL Biology
+BIOS Biostatistics
+BMED Maths &amp; Maths Education
+BMEG Biomedical Engineering
+BSCG Gerontology
+CCSS Contemporary China Studies
+CENG Computer Engineering
+CHED Early Childhood Education
+CHEM Chemistry
+CHES Chinese Studies
+CHLL Chinese Language &amp; Literature
+CHLT Chinese Proficiency Courses
+CHPR Community Health Practice
+CHPY Chemical Pathology
+CLCC Cantonese
+CLCE CLC content courses
+CLCP Putonghua
+CLED Chinese Language Education
+CLGY Clinical Gerontology
+CMBI Cell &amp; Molecular Biology
+CMSC Computer Science (TPg)
+CNGT Medical Genetics
+COMM Communication
+CSCI Computer Science
+CULS Cultural Studies
+CUMT Cultural Management
+CURE Cultural &amp; Religious Studies
+CVSM Cardiology
+DROI Diagnostic Radiology &amp; Organ I
+DSME Decision Sciences &amp; Managerial
+EASC Earth and Atmospheric Sciences
+ECLT E-Commerce (Business Programme
+ECON Economics
+EDUC Education
+EEEN Energy and Environmental Erg
+ELED English Language Education
+ELEG Electronic Engineering
+ELTU English Language Teaching Unit
+EMBA Executive MBA
+ENER Energy Engineering
+ENGE English
+ENGG Courses offered by Fac of Erg
+ENLC End-of-Life Care
+ENLT English Language Teaching
+ENSC Environmental Science
+EPBI Epidemiology &amp; Biostatistics
+EPID Epidemiology of Infectious Dis
+ESGS Earth System and GeoInfo Sci
+ESSC Earth System Science-UG Major
+ESTR Courses for ELITE Stream
+EXSC Exercise Science
+FAAS Fine Arts
+FINA Finance
+FNSC Food &amp; Nutritional Sciences
+FREN French
+GAST Gastroenterology
+GDRS Gender Studies
+GECC GE - Chung Chi College
+GECW GE - CW Chu College
+GEJC GE - Joint Colleges
+GELD Leadership Development Program
+GEMC GE - Morningside College
+GENA GE - New Asia College
+GEOR Geriatric Orthopaedics
+GERM German
+GESC GE - Shaw College
+GESH GE - S.H. Ho College
+GEUC GE - United College
+GEWS GE - Lee Woo SIng College
+GEYS GE - Wu Yee Sun College
+GISM Geoinformation Science
+GLBS Global Studies (2-year)
+GLEF Global Economics and Finance
+GLSD Global Studies
+GNBF Genomics and Bioinformatics
+GNED General Education
+GPAD Government &amp; Public Admin
+GPEC Global Political Economy
+GPGC Govt &amp; Poli (Greater Chi)
+GPSU Global Physician-Leadership St
+GRMD Geography &amp; Resource Mgt
+HIST History
+HKSL Hong Kong Sign Language
+HPSB Master of Public Health
+HSGS Housing Studies
+HSOC Health Sociomedical Sciences
+HSYS Health Systems
+HTMG Hotel And Tourism Management
+IASP International Asian Studies
+IBBA Integrated BBA Programme
+IEMS Information Engineering (TPg)
+IERG Information Engineering
+INFD Infectious Diseases
+IPCE Putonghua, Cantonese &amp; English
+ITAL Italian
+JASP Japanese Studies
+KORE Korean
+LAWS Law
+LING Linguistics
+LSCI Life Sciences Courses
+LSED Liberal Studies
+MAED Mathematics Education
+MAEG Mechanical &amp; Automation Engg
+MATH Mathematics
+MAVE Values Education
+MBAC MBA Programmes
+MBTE Molecular Biotechnology
+MCLE Chinese Lang Education (TPg)
+MCNS Stroke &amp; Clinical Neuroscience
+MECM Early Childhood Education
+MEDF Medicine Faculty Package
+MEDM Endo, Diabetes &amp; Metabolism
+MEDP Molecular Med &amp; Biostatistics
+MEDU Medicine
+MESC Medical Sciences (PG)
+MGNT Management
+MHLS Mental Health
+MICY Microbiology
+MKTG Marketing
+MLSC Medical Laboratory Sciences
+MMAT Mathematics (TPg)
+MPTE Putonghua Education
+MPUP Public Policy
+MSEG Materials Sci &amp; Engineering
+MSMR Musculoskeletal Med &amp; Rehab
+MTCI Teaching Chi as Int&#039;l Lang
+MUSC Music
+NSCI Natural Sciences
+NSSC Neurological Sciences
+NURS Nursing
+OBGY Obstetrics &amp; Gynaecology
+OBSC Obstetric Care
+OENV Occupational &amp; Environmental H
+ORTY Orthopaedics &amp; Traumatology
+OVSC Ophthalmology &amp; Visual Science
+PBHT Public Heatlh (TPg)
+PEDU Education (PG)
+PGDC PgD Education (ECE)
+PGDE PgD Education
+PGDP PgD Education (Primary)
+PHAR Pharmacy
+PHEC Prehospital and Emergency Care
+PHED Physical Education
+PHIL Philosophy
+PHPC Public Health
+PHYS Physics
+POPG Public Heatlh (TPg)
+POPN Perio Care of Min Acc Sur
+PSYC Psychology
+PUBH Public Health (RPg)
+RELS Religious Studies &amp; Theology
+RMCE Reprod Med &amp; Clin Embry
+RMED Research Medicine
+RMSC Risk Management Science
+RUSS Russian
+SBMS Biomedical Sciences
+SEEM Systems Engineering &amp; Engg Mgt
+SENV Sustainable &amp; Environmental De
+SGCL School Guidance &amp; Counselling
+SILP School Improvement and Leaders
+SOCI Sociology
+SOWK Social Work
+SPAN Spanish
+SPED Sports Science &amp; Physical Educ
+SPSY Sports Studies
+SSMU Selected Study Modules
+SSPE Sports Sci &amp; Phy Edu (TPg)
+STAT Statistics
+SURY Surgery
+SUTM Sustainable Tourism
+THAI Thai
+THEO Theology
+TRAN Translation
+UGEA UGEA Chinese Cultural Heritage
+UGEB UGEB Nature Science &amp; Tech
+UGEC UGEC Society &amp; Culture
+UGED UGED Self &amp; Humanity
+UGFH UGFH In Dialogue with Humanity
+UGFN UGFN In Dialogue with Nature
+URBD Urban Design
+URSP Urban Studies
