@@ -5,12 +5,17 @@ import (
 	"strconv"
 )
 
-func (s *parser) parseCourses(icsid, career, term, subject, subj string) ([]rowHeadS, error) {
-	cols, width1, width2, width3 := "16", "1453", "803", "1315"
-	if career == "Postgraduate - Research" || career == "Postgraduate - Taught" {
-		cols, width1, width2, width3 = "15", "1408", "758", "1270"
-	}
-	const beforeStateNum = `<html dir='ltr' lang='en'>
+func (s *parser) parseCourses(icsid, career, term, subject, subj string) (ret []rowHeadS, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(parseError); ok {
+				err = e.error
+			} else {
+				panic(r)
+			}
+		}
+	}()
+	s.spanPanic(`before ICSID`, `<html dir='ltr' lang='en'>
 <!-- Copyright (c) 2000, 2007, Oracle. All rights reserved. -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -82,8 +87,7 @@ nResubmit=0;
 <form name='win0' method='post' action="../../../EMPLOYEE/HRMS/c/CU_SCR_MENU.CU_TMSR801.GBL"  autocomplete='off'>
 <input type='hidden' name='ICType' value='Panel' />
 <input type='hidden' name='ICElementNum' value='0' />
-<input type='hidden' name='ICStateNum' value='`
-	const beforeICSID = `' />
+<input type='hidden' name='ICStateNum' value='3' />
 <input type='hidden' name='ICAction' value='None' />
 <input type='hidden' name='ICXPos' value='0' />
 <input type='hidden' name='ICYPos' value='0' />
@@ -91,8 +95,9 @@ nResubmit=0;
 <input type='hidden' name='ICSaveWarningFilter' value='0' />
 <input type='hidden' name='ICChanged' value='-1' />
 <input type='hidden' name='ICResubmit' value='0' />
-<input type='hidden' name='ICSID' value='`
-	const afterICSID = `' />
+<input type='hidden' name='ICSID' value='`)
+	s.spanPanic(`ICSID`, icsid)
+	s.spanPanic(`after ICSID`, `' />
 <input type='hidden' name='ICFind' value='' />
 <div ID='PAGEBAR'><table cols='3' width='100%' cellpadding='0' cellspacing='0' hspace='0' vspace='0'>
 <tr>
@@ -105,8 +110,7 @@ nResubmit=0;
 </table>
 <br />
 </div><table class='PSPAGECONTAINER' ><tr><td>
-<table  id='ACE_width' border='0' cellpadding='0' cellspacing='0' class='PSPAGECONTAINER' cols='9' width='`
-	const afterICSIDWidth = `'>
+<table  id='ACE_width' border='0' cellpadding='0' cellspacing='0' class='PSPAGECONTAINER' cols='9' width='1453'>
 <tr>
 <td width='4' height='4'></td>
 <td width='8'></td>
@@ -115,8 +119,7 @@ nResubmit=0;
 <td width='4'></td>
 <td width='360'></td>
 <td width='148'></td>
-<td width='`
-	const beforeCareer = `'></td>
+<td width='803'></td>
 <td width='114'></td>
 </tr>
 <tr>
@@ -145,8 +148,9 @@ nResubmit=0;
 <tr>
 <td height='13'></td>
 <td  valign='top' align='left'>
-<span  class='PSEDITBOX_DISPONLY' >`
-	const afterCareer = `</span>
+<span  class='PSEDITBOX_DISPONLY' >`)
+	s.spanPanic(`career`, career)
+	s.spanPanic(`after career`, `</span>
 </td>
 </tr>
 </table>
@@ -177,8 +181,9 @@ nResubmit=0;
 <tr>
 <td height='10'></td>
 <td  valign='top' align='left'>
-<span  class='PSEDITBOX_DISPONLY' >`
-	const afterTerm = `</span>
+<span  class='PSEDITBOX_DISPONLY' >`)
+	s.spanPanic(`term`, term)
+	s.spanPanic(`after term`, `</span>
 </td>
 </tr>
 </table>
@@ -209,8 +214,9 @@ nResubmit=0;
 <tr>
 <td height='10'></td>
 <td  valign='top' align='left'>
-<span  class='PSEDITBOX_DISPONLY' >`
-	const afterSubject = `</span>
+<span  class='PSEDITBOX_DISPONLY' >`)
+	s.spanPanic(`subject`, subject)
+	s.spanPanic(`after subject`, `</span>
 </td>
 </tr>
 </table>
@@ -225,19 +231,22 @@ nResubmit=0;
 <td height='26' colspan='5'></td>
 <td colspan='4'  valign='top' align='left'>
 <span  class='PSHYPERLINK' >
-<a name='CU_RC_TMSR801_SSR_PB_NEW_SEARCH' id='CU_RC_TMSR801_SSR_PB_NEW_SEARCH' tabindex='23' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_NEW_SEARCH');"  class='PSHYPERLINK'  title="Search" >New Search</a></span>
+<a name='CU_RC_TMSR801_SSR_PB_NEW_SEARCH' id='CU_RC_TMSR801_SSR_PB_NEW_SEARCH' tabindex='21' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_NEW_SEARCH');"  class='PSHYPERLINK'  title="Search" >New Search</a></span>
 </td>
 </tr>
 <tr>
-<td height='`
-	const afterHeight = `' colspan='4'></td>
+<td height='`)
+	height := s.splitIntPanic(`after subject height`, `' colspan='4'></td>
 <td colspan='4'  valign='top' align='left'>
-<table border='1' cellspacing='0' class='PSLEVEL1GRIDWBO'  id='CLASS_LIST$scroll$0' dir='ltr' cellpadding='2' cols='`
-	const afterCols = `' width='`
-	const afterWidth = `'>
-<tr><td class='PSLEVEL1GRIDLABEL'  colspan='`
-	const beforeOf = `' align='right'><a name='CLASS_LIST$hfind$0' id='CLASS_LIST$hfind$0' tabindex='26' onclick="return FindString_win0(document.win0.ICFind);" href="javascript:submitAction_win0(document.win0,'CLASS_LIST$hfind$0');"  class='PSLEVEL1GRIDLABEL' >Find</a>&nbsp;|&nbsp;<a name='CLASS_LIST$hexcel$0' id='CLASS_LIST$hexcel$0' tabindex='27' href="javascript:submitAction_win0(document.win0,'CLASS_LIST$hexcel$0');"><img src=/cs/public/cache/PT_DOWNLOAD_1.gif name='CLASS_LIST$hexcel$img$0' alt='Download' title='Download' border='0' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class='PSHEADERHYPERLINKD' >First</span>&nbsp;<img src=/cs/public/cache/PT_PREVIOUSROW_D_1.gif name='CLASS_LIST$hup$img$0' alt='Show previous row (inactive button) (Alt+,)' title='Show previous row (inactive button) (Alt+,)' border='0' />&nbsp;<span class='PSGRIDCOUNTER' >`
-	const beforeRows16 = `</span>&nbsp;<img src=/cs/public/cache/PT_NEXTROW_D_1.gif name='CLASS_LIST$hdown$img$0' alt='Show next row (inactive button) (Alt+.)' title='Show next row (inactive button) (Alt+.)' border='0' />&nbsp;<span  class='PSHEADERHYPERLINKD' >Last</span>&nbsp;</td></tr>
+<table border='1' cellspacing='0' class='PSLEVEL1GRIDWBO'  id='CLASS_LIST$scroll$0' dir='ltr' cellpadding='2' cols='16' width='1315'>
+<tr><td class='PSLEVEL1GRIDLABEL'  colspan='16' align='right'><a name='CLASS_LIST$hfind$0' id='CLASS_LIST$hfind$0' tabindex='24' onclick="return FindString_win0(document.win0.ICFind);" href="javascript:submitAction_win0(document.win0,'CLASS_LIST$hfind$0');"  class='PSLEVEL1GRIDLABEL' >Find</a>&nbsp;|&nbsp;<a name='CLASS_LIST$hexcel$0' id='CLASS_LIST$hexcel$0' tabindex='25' href="javascript:submitAction_win0(document.win0,'CLASS_LIST$hexcel$0');"><img src=/cs/public/cache/PT_DOWNLOAD_1.gif name='CLASS_LIST$hexcel$img$0' alt='Download' title='Download' border='0' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class='PSHEADERHYPERLINKD' >First</span>&nbsp;<img src=/cs/public/cache/PT_PREVIOUSROW_D_1.gif name='CLASS_LIST$hup$img$0' alt='Show previous row (inactive button) (Alt+,)' title='Show previous row (inactive button) (Alt+,)' border='0' />&nbsp;<span class='PSGRIDCOUNTER' >`)
+	rows := (height - 35) / 22
+	if rows == 1 {
+		s.spanPanic(`rows`, "1 of 1")
+	} else {
+		s.spanPanic(`rows`, fmt.Sprintf("1-%v of %v", rows, rows))
+	}
+	s.spanPanic(`before rows`, `</span>&nbsp;<img src=/cs/public/cache/PT_NEXTROW_D_1.gif name='CLASS_LIST$hdown$img$0' alt='Show next row (inactive button) (Alt+.)' title='Show next row (inactive button) (Alt+.)' border='0' />&nbsp;<span  class='PSHEADERHYPERLINKD' >Last</span>&nbsp;</td></tr>
 <tr valign='center'>
 <th scope='col' width='82' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Class Code</th>
 <th scope='col' width='43' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Class Nbr</th>
@@ -256,27 +265,45 @@ nResubmit=0;
 <th scope='col' width='44' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Drop Consent</th>
 <th scope='col' width='148' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Course Offering Dept</th>
 </tr>
-`
-	const beforeRows15 = `</span>&nbsp;<img src=/cs/public/cache/PT_NEXTROW_D_1.gif name='CLASS_LIST$hdown$img$0' alt='Show next row (inactive button) (Alt+.)' title='Show next row (inactive button) (Alt+.)' border='0' />&nbsp;<span  class='PSHEADERHYPERLINKD' >Last</span>&nbsp;</td></tr>
-<tr valign='center'>
-<th scope='col' width='82' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Class Code</th>
-<th scope='col' width='43' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Class Nbr</th>
-<th scope='col' width='165' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Course Title</th>
-<th scope='col' width='38' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Units</th>
-<th scope='col' width='157' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Teaching Staff</th>
-<th scope='col' width='47' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Quota(s)</th>
-<th scope='col' width='61' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Course Component</th>
-<th scope='col' width='40' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Section Code</th>
-<th scope='col' width='50' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Language</th>
-<th scope='col' width='83' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Meeting Date</th>
-<th scope='col' width='105' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Period</th>
-<th scope='col' width='61' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Room</th>
-<th scope='col' width='42' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Add Consent</th>
-<th scope='col' width='44' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Drop Consent</th>
-<th scope='col' width='148' align='left' class='PSLEVEL1GRIDCOLUMNHDR' >Course Offering Dept</th>
-</tr>
-`
-	const afterRows = `</table>
+`)
+	group := ""
+	prevCode := ""
+	prevTitle := ""
+	prevUnits := ""
+	for row := 0; row < rows; row++ {
+		r, err := s.parseCourseRow(row, subj, group)
+		if err != nil {
+			return nil, fmt.Errorf("%vth row\n%v", row, err)
+		}
+		switch r := r.(type) {
+		case rowHeadS:
+			ret = append(ret, r)
+			group = r.group
+			if prevCode == r.code {
+				if r.code == "2411" && subj == "ELTU" {
+				} else {
+					if r.title != prevTitle || r.units != prevUnits {
+						return nil, fmt.Errorf("mismatch rowHead %v", r.code)
+					}
+				}
+			}
+			prevCode = r.code
+			prevTitle = r.title
+			prevUnits = r.units
+		case rowBodyS:
+			if len(ret) == 0 {
+				return nil, fmt.Errorf("first rowBody")
+			}
+			ret[len(ret)-1].rowBodys = append(ret[len(ret)-1].rowBodys, r)
+		case rowFootS:
+			if len(ret) == 0 {
+				return nil, fmt.Errorf("first rowFoot")
+			}
+			o := ret[len(ret)-1].rowBodys
+			o[len(o)-1].rowFoots = append(o[len(o)-1].rowFoots, r)
+		}
+	}
+	s.spanPanic(`after rows`, `</table>
 </td>
 </tr>
 <tr>
@@ -296,8 +323,9 @@ nResubmit=0;
 <td height='17'></td>
 <td  valign='top' align='left'>
 <span  class='PSHYPERLINK' >
-<a name='CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0' id='CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0' tabindex='`
-	const last = `' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0');"  class='PSHYPERLINK'  title="Search" >New Search</a></span>
+<a name='CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0' id='CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0' tabindex='`)
+	s.spanPanic(`tabindex`, strconv.Itoa(36+rows*6+13))
+	s.equalPanic(`last`, `' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_NEW_SEARCH$41$$0');"  class='PSHYPERLINK'  title="Search" >New Search</a></span>
 </td>
 </tr>
 </table>
@@ -316,130 +344,6 @@ nResubmit=0;
 <a name='ICLastAnchor_win0'></a>
 </body>
 </html>
-`
-	if err := s.spanErr(beforeStateNum); err != nil {
-		return nil, fmt.Errorf("beforeStateNum\n%v", err)
-	}
-	if err := s.spanErr("3"); err != nil {
-		return nil, fmt.Errorf("stateNum\n%v", err)
-	}
-	if err := s.spanErr(beforeICSID); err != nil {
-		return nil, fmt.Errorf("beforeICSID\n%v", err)
-	}
-	if err := s.spanErr(icsid); err != nil {
-		return nil, fmt.Errorf("icsid\n%v", err)
-	}
-	if err := s.spanErr(afterICSID); err != nil {
-		return nil, fmt.Errorf("afterICSID\n%v", err)
-	}
-	if err := s.spanErr(width1); err != nil {
-		return nil, fmt.Errorf("width1\n%v", err)
-	}
-	if err := s.spanErr(afterICSIDWidth); err != nil {
-		return nil, fmt.Errorf("afterICSIDWidth\n%v", err)
-	}
-	if err := s.spanErr(width2); err != nil {
-		return nil, fmt.Errorf("width2\n%v", err)
-	}
-	if err := s.spanErr(beforeCareer); err != nil {
-		return nil, fmt.Errorf("beforeCareer\n%v", err)
-	}
-	if err := s.spanErr(career); err != nil {
-		return nil, fmt.Errorf("career\n%v", err)
-	}
-	if err := s.spanErr(afterCareer); err != nil {
-		return nil, fmt.Errorf("afterCareer\n%v", err)
-	}
-	if err := s.spanErr(term); err != nil {
-		return nil, fmt.Errorf("term\n%v", err)
-	}
-	if err := s.spanErr(afterTerm); err != nil {
-		return nil, fmt.Errorf("afterTerm\n%v", err)
-	}
-	if err := s.spanErr(subject); err != nil {
-		return nil, fmt.Errorf("subject\n%v", err)
-	}
-	if err := s.spanErr(afterSubject); err != nil {
-		return nil, fmt.Errorf("afterSubject\n%v", err)
-	}
-	t, err := s.splitErr(afterHeight)
-	if err != nil {
-		return nil, fmt.Errorf("height\n%v", err)
-	}
-	height, err := strconv.Atoi(t)
-	if err != nil {
-		return nil, fmt.Errorf("height: %v", err)
-	}
-	if err := s.spanErr(cols); err != nil {
-		return nil, fmt.Errorf("cols\n%v", err)
-	}
-	if err := s.spanErr(afterCols); err != nil {
-		return nil, fmt.Errorf("afterCols\n%v", err)
-	}
-	if err := s.spanErr(width3); err != nil {
-		return nil, fmt.Errorf("width3\n%v", err)
-	}
-	if err := s.spanErr(afterWidth); err != nil {
-		return nil, fmt.Errorf("afterwidth\n%v", err)
-	}
-	if err := s.spanErr(cols); err != nil {
-		return nil, fmt.Errorf("cols2\n%v", err)
-	}
-	if err := s.spanErr(beforeOf); err != nil {
-		return nil, fmt.Errorf("beforeOf\n%v", err)
-	}
-	rows := (height - 35) / 22
-	if rows == 1 {
-		if err := s.spanErr("1 of 1"); err != nil {
-			return nil, fmt.Errorf("rows %v\n%v", rows, err)
-		}
-	} else {
-		if err := s.spanErr(fmt.Sprintf("1-%v of %v", rows, rows)); err != nil {
-			return nil, fmt.Errorf("rows %v\n%v", rows, err)
-		}
-	}
-	cols16 := cols == "16"
-	if cols16 {
-		if err := s.spanErr(beforeRows16); err != nil {
-			return nil, fmt.Errorf("beforeRows16\n%v", err)
-		}
-	} else {
-		if err := s.spanErr(beforeRows15); err != nil {
-			return nil, fmt.Errorf("beforeRows15\n%v", err)
-		}
-	}
-	var ret []rowHeadS
-	group := ""
-	for row := 0; row < rows; row++ {
-		r, err := s.parseCourseRow(cols16, row, subj, group)
-		if err != nil {
-			return nil, fmt.Errorf("%vth row\n%v", row, err)
-		}
-		switch r := r.(type) {
-		case rowHeadS:
-			ret = append(ret, r)
-			group = r.group
-		case rowBodyS:
-			if len(ret) == 0 {
-				return nil, fmt.Errorf("first rowBody")
-			}
-			ret[len(ret)-1].rowBody = append(ret[len(ret)-1].rowBody, r)
-		case rowFootS:
-			if len(ret) == 0 {
-				return nil, fmt.Errorf("first rowFoot")
-			}
-			o := ret[len(ret)-1].rowBody
-			o[len(o)-1].rowFoot = append(o[len(o)-1].rowFoot, r)
-		}
-	}
-	if err := s.spanErr(afterRows); err != nil {
-		return nil, fmt.Errorf("afterRows\n%v", err)
-	}
-	if err := s.spanErr(strconv.Itoa(38 + rows*6 + 13)); err != nil {
-		return nil, fmt.Errorf("last tabindex\n%v", err)
-	}
-	if err := s.equalErr(last); err != nil {
-		return nil, fmt.Errorf("last\n%v", err)
-	}
+`)
 	return ret, nil
 }

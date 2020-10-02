@@ -1,11 +1,16 @@
 package main
 
-import (
-	"fmt"
-)
-
-func (s *parser) parseBoot() (string, error) {
-	const beforeICSID = `<html dir='ltr' lang='en'>
+func (s *parser) parseBoot() (icsid string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(parseError); ok {
+				err = e.error
+			} else {
+				panic(r)
+			}
+		}
+	}()
+	s.spanPanic(`before ICSID`, `<html dir='ltr' lang='en'>
 <!-- Copyright (c) 2000, 2007, Oracle. All rights reserved. -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -86,8 +91,9 @@ nResubmit=0;
 <input type='hidden' name='ICSaveWarningFilter' value='0' />
 <input type='hidden' name='ICChanged' value='-1' />
 <input type='hidden' name='ICResubmit' value='0' />
-<input type='hidden' name='ICSID' value='`
-	const afterICSID = `' />
+<input type='hidden' name='ICSID' value='`)
+	icsid = s.takePanic(`ICSID`, 12)
+	s.spanPanic(`after ICSID`, `' />
 <div ID='PAGEBAR'><table cols='3' width='100%' cellpadding='0' cellspacing='0' hspace='0' vspace='0'>
 <tr>
 <td width='80%'></td><td width='10%' nowrap='nowrap' align='right'><label for='#ICDataLang'><span class='PSDROPDOWNLABEL' >Data Language:&nbsp;&nbsp;</span><select name='#ICDataLang' id='#ICDataLang' tabindex='1' class='PSMULTILANG'  PSaccesskey='9' onchange="submitAction_win0(this.form,this.name);">
@@ -99,7 +105,7 @@ nResubmit=0;
 </table>
 <br />
 </div><table class='PSPAGECONTAINER' ><tr><td>
-<table  id='ACE_width' border='0' cellpadding='0' cellspacing='0' class='PSPAGECONTAINER' cols='8' width='701'>
+<table  id='ACE_width' border='0' cellpadding='0' cellspacing='0' class='PSPAGECONTAINER' cols='8' width='731'>
 <tr>
 <td width='4' height='0'></td>
 <td width='8'></td>
@@ -108,7 +114,7 @@ nResubmit=0;
 <td width='4'></td>
 <td width='76'></td>
 <td width='28'></td>
-<td width='153'></td>
+<td width='183'></td>
 </tr>
 <tr>
 <td height='52'></td>
@@ -159,7 +165,7 @@ nResubmit=0;
 <label for='CLASS_SRCH_WRK2_ACAD_CAREER' class='PSDROPDOWNLABEL' >Course Career</label>
 </td>
 <td  valign='top' align='left'>
-<select name='CLASS_SRCH_WRK2_ACAD_CAREER' id='CLASS_SRCH_WRK2_ACAD_CAREER' tabindex='46' size='1'  class='PSDROPDOWNLIST' style="width:180px; " onchange="submitAction_win0(this.form,this.name);" >
+<select name='CLASS_SRCH_WRK2_ACAD_CAREER' id='CLASS_SRCH_WRK2_ACAD_CAREER' tabindex='48' size='1'  class='PSDROPDOWNLIST' style="width:180px; " onchange="submitAction_win0(this.form,this.name);" >
 <option value=""></option>
 <option value="PGDE">Postgraduate - PGDE</option>
 <option value="RPG">Postgraduate - Research</option>
@@ -193,16 +199,16 @@ nResubmit=0;
 <label for='CLASS_SRCH_WRK2_STRM$50$' class='PSDROPDOWNLABEL' >Term</label>
 </td>
 <td  valign='top' align='left'>
-<select name='CLASS_SRCH_WRK2_STRM$50$' id='CLASS_SRCH_WRK2_STRM$50$' tabindex='27' size='1'  class='PSDROPDOWNLIST' style="width:220px; " onchange="submitAction_win0(this.form,this.name);" >
+<select name='CLASS_SRCH_WRK2_STRM$50$' id='CLASS_SRCH_WRK2_STRM$50$' tabindex='25' size='1'  class='PSDROPDOWNLIST' style="width:220px; " onchange="submitAction_win0(this.form,this.name);" >
 <option value=""></option>
-`
+`)
 	/*<option value="1940">						2016-17 Acad Year (Medicine)</option>
 	  <option value="1945" selected='selected'>					2016-17 Term 1</option>
 	  <option value="1955">				2016-17 Term 2</option>
 	  <option value="1965">			2016-17 Term 3</option>
 	  <option value="1970">		2016-17 Term 4</option>
 	  <option value="1990">	2016-17 Summer Session</option>*/
-	const last = `</select>
+	s.spanLastPanic(`last`, `</select>
 </td>
 </tr>
 </table>
@@ -241,7 +247,7 @@ nResubmit=0;
 <tr>
 <td height='4' colspan='2'></td>
 <td rowspan='3' nowrap='nowrap'  valign='top' align='left'>
-<input type='text' name='CU_RC_TMSR801_SUBJECT' id='CU_RC_TMSR801_SUBJECT' tabindex='36' value=""  class='PSEDITBOX' style="width:58px; " maxlength='8' onchange="oChange_win0=this;"  /><a name='CU_RC_TMSR801_SUBJECT$prompt' id='CU_RC_TMSR801_SUBJECT$prompt' tabindex='37' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SUBJECT$prompt');"><img src="/cs/public/cache/PT_PROMPT_LOOKUP_1.gif" alt='Look up Course Subject (Alt+5)' title='Look up Course Subject (Alt+5)' border='0' align='absmiddle' /></a>
+<input type='text' name='CU_RC_TMSR801_SUBJECT' id='CU_RC_TMSR801_SUBJECT' tabindex='38' value=""  class='PSEDITBOX' style="width:58px; " maxlength='8' onchange="oChange_win0=this;"  /><a name='CU_RC_TMSR801_SUBJECT$prompt' id='CU_RC_TMSR801_SUBJECT$prompt' tabindex='39' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SUBJECT$prompt');"><img src="/cs/public/cache/PT_PROMPT_LOOKUP_1.gif" alt='Look up Course Subject (Alt+5)' title='Look up Course Subject (Alt+5)' border='0' align='absmiddle' /></a>
 </td>
 </tr>
 <tr>
@@ -288,7 +294,7 @@ nResubmit=0;
 <label for='CU_RC_TMSR801_ACAD_ORG' class='PSEDITBOXLABEL' >Course Offering Dept</label>
 </td>
 <td rowspan='2' nowrap='nowrap'  valign='top' align='left'>
-<input type='text' name='CU_RC_TMSR801_ACAD_ORG' id='CU_RC_TMSR801_ACAD_ORG' tabindex='40' value=""  class='PSEDITBOX' style="width:60px; " maxlength='10' onchange="oChange_win0=this;"  /><a name='CU_RC_TMSR801_ACAD_ORG$prompt' id='CU_RC_TMSR801_ACAD_ORG$prompt' tabindex='41' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_ACAD_ORG$prompt');"><img src="/cs/public/cache/PT_PROMPT_LOOKUP_1.gif" alt='Look up Course Offering Dept (Alt+5)' title='Look up Course Offering Dept (Alt+5)' border='0' align='absmiddle' /></a>
+<input type='text' name='CU_RC_TMSR801_ACAD_ORG' id='CU_RC_TMSR801_ACAD_ORG' tabindex='42' value=""  class='PSEDITBOX' style="width:60px; " maxlength='10' onchange="oChange_win0=this;"  /><a name='CU_RC_TMSR801_ACAD_ORG$prompt' id='CU_RC_TMSR801_ACAD_ORG$prompt' tabindex='43' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_ACAD_ORG$prompt');"><img src="/cs/public/cache/PT_PROMPT_LOOKUP_1.gif" alt='Look up Course Offering Dept (Alt+5)' title='Look up Course Offering Dept (Alt+5)' border='0' align='absmiddle' /></a>
 </td>
 </tr>
 <tr>
@@ -327,7 +333,7 @@ nResubmit=0;
 <td height='13'></td>
 <td  valign='top' align='left'>
 <span  class='SSSBUTTON_CONFIRMLINK' >
-<a name='CU_RC_TMSR801_SSR_PB_CLASS_SRCH' id='CU_RC_TMSR801_SSR_PB_CLASS_SRCH' tabindex='50' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_CLASS_SRCH');"  class='SSSBUTTON_CONFIRMLINK' >Search</a></span>
+<a name='CU_RC_TMSR801_SSR_PB_CLASS_SRCH' id='CU_RC_TMSR801_SSR_PB_CLASS_SRCH' tabindex='52' href="javascript:submitAction_win0(document.win0,'CU_RC_TMSR801_SSR_PB_CLASS_SRCH');"  class='SSSBUTTON_CONFIRMLINK' >Search</a></span>
 </td>
 </tr>
 </table>
@@ -336,7 +342,7 @@ nResubmit=0;
 </td>
 </tr>
 <tr>
-<td height='12' colspan='8'></td>
+<td height='16' colspan='8'></td>
 </tr>
 </table>
 </td></tr>
@@ -346,19 +352,6 @@ nResubmit=0;
 <a name='ICLastAnchor_win0'></a>
 </body>
 </html>
-`
-	if err := s.spanErr(beforeICSID); err != nil {
-		return "", fmt.Errorf("beforeICSID\n%v", err)
-	}
-	icsid, err := s.takeErr(12)
-	if err != nil {
-		return "", fmt.Errorf("icsid\n%v", err)
-	}
-	if err := s.spanErr(afterICSID); err != nil {
-		return "", fmt.Errorf("afterICSID\n%v", err)
-	}
-	if err := s.spanLastErr(last); err != nil {
-		return "", fmt.Errorf("last\n%v", err)
-	}
-	return icsid, nil
+`)
+	return
 }

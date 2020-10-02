@@ -3,13 +3,13 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 const cusis = `https://cusis.cuhk.edu.hk/psc/public/EMPLOYEE/HRMS/c/CU_SCR_MENU.CU_TMSR801.GBL`
@@ -27,120 +27,42 @@ func responseToParser(res *http.Response, err error) (*parser, error) {
 	}
 	s := &parser{body}
 	if s.equal(cusisAuthorizeError) {
-		return nil, fmt.Errorf("cusisAuthorizeError")
+		return nil, errCusisAuthorize
 	}
 	if s.span(cusisError) {
-		return nil, fmt.Errorf("cusisError")
+		return nil, errCusis
 	}
 	return s, nil
 }
 
-var reboot func(career, term int) (*http.Client, string, error)
+var reboot func() (*http.Client, string, error)
 
-func rowHeadsToFragment(career, term, subject int, rowHeads []rowHeadS) (*fragmentS, error) {
-	var courses []courseS
-	var groups []groupS
-	var teachers []teacherS
-	var classes []classS
-	var meetings []meetingS
-	coursesMap := make(map[string]int)
-	teachersMap := make(map[string]int)
-	for _, rowHead := range rowHeads {
-		if _, ok := coursesMap[rowHead.code]; !ok {
-			coursesMap[rowHead.code] = len(courses)
-			courses = append(courses, courseS{
-				career,
-				subject,
-				rowHead.code,
-				rowHead.title,
-				rowHead.units,
-				nil,
-			})
-		}
-		course := coursesMap[rowHead.code]
-		if courses[course].title != rowHead.title || courses[course].units != rowHead.units {
-			return nil, fmt.Errorf(
-				"mismatch course\n%v %v\n%v %v",
-				courses[course].title,
-				courses[course].units,
-				rowHead.title,
-				rowHead.units,
-			)
-		}
-		group := groupS{course, term, rowHead.group, nil, nil}
-		for _, rowBody := range rowHead.rowBody {
-			class := classS{
-				len(groups),
-				"",
-				rowBody.quota,
-				rowBody.vacancy,
-				rowBody.component,
-				rowBody.section,
-				rowBody.language,
-				nil,
-				nil,
-				rowBody.rowFoot[0].add,
-				rowBody.rowFoot[0].drop,
-				rowBody.dept,
-			}
-			for _, rowFoot := range rowBody.rowFoot {
-				if rowFoot.add != class.add || rowFoot.drop != class.drop {
-					return nil, fmt.Errorf("differ add drop\n%v", rowFoot)
-				}
-				class.meetings = append(class.meetings, len(meetings))
-				meetings = append(meetings, meetingS{
-					len(classes),
-					rowFoot.period,
-					rowFoot.room,
-					rowFoot.date,
-				})
-			}
-			group.classes = append(group.classes, len(classes))
-			classes = append(classes, class)
-		}
-		for _, t := range rowHead.teachers {
-			if _, ok := teachersMap[t]; !ok {
-				teachersMap[t] = len(teachers)
-				teachers = append(teachers, teacherS{t, nil})
-			}
-			teachers[teachersMap[t]].classes = append(teachers[teachersMap[t]].classes, group.classes[0])
-			classes[group.classes[0]].teachers = append(classes[group.classes[0]].teachers, teachersMap[t])
-		}
-		courses[course].groups = append(courses[course].groups, len(groups))
-		groups = append(groups, group)
-	}
-	return &fragmentS{
-		courses,
-		groups,
-		teachers,
-		classes,
-		meetings,
-	}, nil
-}
-
-func crawlCourse(career, term, subject int) (*fragmentS, error) {
-	c, icsid, err := reboot(career, term)
+func crawlCourse(subject [2]string) ([]rowHeadS, error) {
+	c, icsid, err := reboot()
 	if err != nil {
 		return nil, fmt.Errorf("reboot: %v", err)
 	}
 	s, err := responseToParser(c.PostForm(cusis, url.Values{
 		"ICSID":                 {icsid},
 		"ICAction":              {"CU_RC_TMSR801_SSR_PB_CLASS_SRCH"},
-		"CU_RC_TMSR801_SUBJECT": {db.subjects[subject].slug},
+		"CU_RC_TMSR801_SUBJECT": {subject[0]},
 	}))
 	if err != nil {
 		return nil, fmt.Errorf("post search: %v", err)
 	}
 	rowHeads, err := s.parseCourses(
 		icsid,
-		db.careers[career].en,
-		db.terms[term].en,
-		db.subjects[subject].en,
-		db.subjects[subject].slug,
+		"Undergraduate",
+		thisTerm[1],
+		strings.Replace(subject[1], "&", "&amp;", -1),
+		subject[0],
 	)
+	if err != nil {
+		return nil, fmt.Errorf("parseCourses: %v", err)
+	}
 	stateNum := 3
 	for i, rowHead := range rowHeads {
-		if !rowHead.reserves {
+		if rowHead.reserves == nil {
 			continue
 		}
 		s, err := responseToParser(c.PostForm(cusis, url.Values{
@@ -151,12 +73,12 @@ func crawlCourse(career, term, subject int) (*fragmentS, error) {
 			return nil, fmt.Errorf("post cap: %v", err)
 		}
 		stateNum++
-		_, err = s.parseReserves(
+		rowHeads[i].reserves, err = s.parseReserves(
 			strconv.Itoa(stateNum),
 			icsid,
-			db.subjects[subject].slug+rowHead.code+rowHead.group+rowHead.rowBody[0].section,
+			subject[0]+rowHead.code+rowHead.group+rowHead.rowBodys[0].section,
 			rowHead.nbr,
-			rowHead.rowBody[0].component,
+			rowHead.rowBodys[0].component,
 			rowHead.title,
 		)
 		if err != nil {
@@ -171,128 +93,35 @@ func crawlCourse(career, term, subject int) (*fragmentS, error) {
 		}
 		stateNum++
 	}
-	_, err = rowHeadsToFragment(career, term, subject, rowHeads)
-	if err != nil {
-		return nil, fmt.Errorf("fragment\n%v", err)
-	}
-	prevCode := ""
-	for i, rowHead := range rowHeads {
-		if rowHead.code == prevCode {
-			continue
-		}
-		prevCode = rowHead.code
-		s, err := responseToParser(c.PostForm(cusis, url.Values{
-			"ICSID":    {icsid},
-			"ICAction": {`CRSE_TITLE$` + strconv.Itoa(rowHead.row)},
-		}))
-		if err != nil {
-			return nil, fmt.Errorf("post title: %v", err)
-		}
-		stateNum++
-		detail, err := s.parseDetail(
-			strconv.Itoa(stateNum),
-			icsid,
-			db.subjects[subject].slug,
-			rowHead.code,
-			db.careers[career].en,
-			rowHead.units,
-			rowHead.rowBody[0].rowFoot[0].add,
-			rowHead.rowBody[0].rowFoot[0].drop,
-		)
-		detailString := string(s.s)
-		if err != nil {
-			return nil, fmt.Errorf("parseDetail %v\n%v", i, err)
-		}
-		if detail.scheduled {
-			s, err = responseToParser(c.PostForm(cusis, url.Values{
-				"ICSID":    {icsid},
-				"ICAction": {"DERIVED_SAA_CRS_SSR_PB_GO"},
-			}))
-			if err != nil {
-				return nil, fmt.Errorf("post sections: %v", err)
-			}
-			stateNum++
-			sections, err := s.parseSections(
-				strconv.Itoa(stateNum),
-				icsid,
-				db.subjects[subject].slug,
-				rowHead.code,
-				detail.title,
-				detailString,
-			)
-			if err != nil {
-				return nil, fmt.Errorf("parseSections %v\n%v", i, err)
-			}
-			if sections.more {
-				s, err = responseToParser(c.PostForm(cusis, url.Values{
-					"ICSID":                    {icsid},
-					"ICAction":                 {"CLASS_TBL_VW5$fviewall$0"},
-					"DERIVED_SAA_CRS_TERM_ALT": {sections.terms[sections.term][0]},
-				}))
-				if err != nil {
-					return nil, fmt.Errorf("post more: %v", err)
-				}
-				stateNum++
-				sections, err = s.parseSections(
-					strconv.Itoa(stateNum),
-					icsid,
-					db.subjects[subject].slug,
-					rowHead.code,
-					detail.title,
-					detailString,
-				)
-				if err != nil {
-					return nil, fmt.Errorf("parseSectionsAll %v\n%v", i, err)
-				}
-			}
-		}
-		s, err = responseToParser(c.PostForm(cusis, url.Values{
-			"ICSID":    {icsid},
-			"ICAction": {`DERIVED_SAA_CRS_RETURN_PB`},
-		}))
-		if err != nil {
-			return nil, fmt.Errorf("post return: %v", err)
-		}
-		stateNum++
-	}
-	if err != nil {
-		return nil, fmt.Errorf("parseCourses: %v", err)
-	}
-	return nil, nil
+	return rowHeads, nil
 }
 
-func crawlCourses() error {
+func crawlCourses(subjects [][2]string, workers int) error {
 	type resultS struct {
-		c, t, s int
-		r       *fragmentS
+		subjects [2]string
+		rowHeads []rowHeadS
 	}
 	results := make(chan resultS)
-	jobs := make(chan [3]int)
-	errs := make(chan error, 10)
+	jobs := make(chan [2]string)
+	errs := make(chan error, workers)
 	var wg sync.WaitGroup
-	wg.Add(10)
-	for i := 0; i < 10; i++ {
+	wg.Add(workers)
+	for i := 0; i < workers; i++ {
 		go func() {
 			defer wg.Done()
 			for job := range jobs {
 				for retry := 0; ; retry++ {
-					r, err := crawlCourse(job[0], job[1], job[2])
+					r, err := crawlCourse(job)
 					if err == nil {
-						results <- resultS{job[0], job[1], job[2], r}
+						results <- resultS{job, r}
 						break
 					}
-					err = fmt.Errorf(
-						"crawlCourses(%v, %v, %v): %v",
-						db.careers[job[0]].slug,
-						db.terms[job[1]].en,
-						db.subjects[job[2]].slug,
-						err,
-					)
+					err = fmt.Errorf("crawlCourses(%v): %v", job, err)
 					if retry == 3 {
 						errs <- err
 						return
 					}
-					log.Printf("retry %v: %v", retry, err)
+					writeLogs <- fmt.Sprintf("retry %v: %v\n", retry, err)
 				}
 			}
 		}()
@@ -304,31 +133,221 @@ func crawlCourses() error {
 			close(results)
 			close(errs)
 		}()
-		for _, ct := range db.careerTerms {
-			for _, s := range ct.subjects {
-				select {
-				case err := <-errs:
-					errs <- err
-					return
-				case jobs <- [3]int{ct.career, ct.term, s}:
-				}
+		for _, subject := range subjects {
+			select {
+			case err := <-errs:
+				errs <- err
+				return
+			case jobs <- subject:
 			}
 		}
 	}()
-	for range results {
+	changed := false
+	for res := range results {
+		for _, rowHead := range res.rowHeads {
+			reserves := rowHead.reserves
+			for _, rowBody := range rowHead.rowBodys {
+				s := res.subjects[0] + rowHead.code + rowHead.group + rowBody.section
+				history := db[s]
+				if history == nil {
+					changed = true
+					db[s] = &historyS{
+						rowHead.group,
+						rowHead.title,
+						rowBody.quota,
+						rowBody.quota - rowBody.vacancy,
+						reserves,
+						nil,
+					}
+				} else {
+					now := time.Now().Unix()
+					changeLen := len(history.changes)
+					if history.title != rowHead.title {
+						history.changes = append(history.changes, changeS{
+							now,
+							4,
+							history.title,
+						})
+						history.title = rowHead.title
+					}
+					if history.quota != rowBody.quota {
+						history.changes = append(history.changes, changeS{
+							now,
+							5,
+							history.quota,
+						})
+						history.quota = rowBody.quota
+					}
+					if history.enroll != rowBody.quota-rowBody.vacancy {
+						history.changes = append(history.changes, changeS{
+							now,
+							6,
+							history.enroll,
+						})
+						history.enroll = rowBody.quota - rowBody.vacancy
+					}
+					for i := 0; i < len(history.reserves) || i < len(reserves); i++ {
+						if i >= len(history.reserves) {
+							history.changes = append(history.changes, changeS{
+								now,
+								7 + i*3,
+								"",
+							})
+							history.changes = append(history.changes, changeS{
+								now,
+								8 + i*3,
+								0,
+							})
+							history.changes = append(history.changes, changeS{
+								now,
+								9 + i*3,
+								0,
+							})
+							history.reserves = append(history.reserves, reserves[i])
+							continue
+						}
+						if i >= len(reserves) {
+							if history.reserves[i] != (reserveS{}) {
+								history.changes = append(history.changes, changeS{
+									now,
+									7 + i*3,
+									history.reserves[i].major,
+								})
+								history.changes = append(history.changes, changeS{
+									now,
+									8 + i*3,
+									history.reserves[i].quota,
+								})
+								history.changes = append(history.changes, changeS{
+									now,
+									9 + i*3,
+									history.reserves[i].enroll,
+								})
+							}
+							history.reserves[i] = reserveS{}
+							continue
+						}
+						if history.reserves[i].major != reserves[i].major {
+							history.changes = append(history.changes, changeS{
+								now,
+								7 + i*3,
+								history.reserves[i].major,
+							})
+							history.reserves[i].major = reserves[i].major
+						}
+						if history.reserves[i].quota != reserves[i].quota {
+							history.changes = append(history.changes, changeS{
+								now,
+								8 + i*3,
+								history.reserves[i].quota,
+							})
+							history.reserves[i].quota = reserves[i].quota
+						}
+						if history.reserves[i].enroll != reserves[i].enroll {
+							history.changes = append(history.changes, changeS{
+								now,
+								9 + i*3,
+								history.reserves[i].enroll,
+							})
+							history.reserves[i].enroll = reserves[i].enroll
+						}
+					}
+					if changeLen != len(history.changes) {
+						changed = true
+					}
+				}
+				reserves = nil
+			}
+		}
 	}
 	if err := <-errs; err != nil {
 		return err
 	}
+	if changed {
+		select {
+		case githubPush <- struct{}{}:
+		default:
+		}
+	}
 	return nil
 }
 
-func crawlSubject(career, term int) ([][2]string, error) {
-	c, icsid, err := reboot(career, term)
+func boot() (*http.Client, *parser, error) {
+	j, err := cookiejar.New(nil)
 	if err != nil {
-		return nil, fmt.Errorf("reboot err: %v", err)
+		return nil, nil, err
 	}
-	s, err := responseToParser(c.PostForm(cusis, url.Values{
+	var c = &http.Client{Jar: j}
+	s, err := responseToParser(c.Get(cusis))
+	if err != nil {
+		return nil, nil, err
+	}
+	return c, s, nil
+}
+
+func crawlSubjects() ([][2]string, error) {
+	c, s, err := boot()
+	if err != nil {
+		return nil, fmt.Errorf("boot: %v", err)
+	}
+	icsid, err := s.parseBoot()
+	if err != nil {
+		return nil, fmt.Errorf("parseBoot\n%v", err)
+	}
+	s, err = responseToParser(c.PostForm(cusis, url.Values{
+		"ICSID":                       {icsid},
+		"ICAction":                    {`CLASS_SRCH_WRK2_STRM$50$`},
+		`CLASS_SRCH_WRK2_ACAD_CAREER`: {"UG"},
+		`CLASS_SRCH_WRK2_STRM$50$`:    {thisTerm[0]},
+	}))
+	if err != nil {
+		return nil, fmt.Errorf("postTerm\n%v", err)
+	}
+	if err := s.parseBoot2(icsid); err != nil {
+		return nil, fmt.Errorf("parseBoot2\n%v", err)
+	}
+	termString := string(s.s)
+	term, err := s.parseTerms()
+	if err != nil {
+		return nil, fmt.Errorf("parseTerms\n%v", err)
+	}
+	term[1] = strings.TrimSpace(term[1])
+	if term[0] != thisTerm[0] {
+		return nil, fmt.Errorf("no term\n%v %v", term, thisTerm)
+	}
+	if thisTerm != *term {
+		thisTerm = *term
+		if err = githubFetchDB(); err != nil{ 
+			return nil, fmt.Errorf("githubFetchDB: %v", err)
+		}
+	}
+	reboot = func() (*http.Client, string, error) {
+		c, s, err := boot()
+		if err != nil {
+			return nil, "", err
+		}
+		icsid, err := s.parseBoot()
+		if err != nil {
+			return nil, "", fmt.Errorf("parseBoot\n%v", err)
+		}
+		s, err = responseToParser(c.PostForm(cusis, url.Values{
+			"ICSID":                       {icsid},
+			"ICAction":                    {`CLASS_SRCH_WRK2_STRM$50$`},
+			`CLASS_SRCH_WRK2_ACAD_CAREER`: {"UG"},
+			`CLASS_SRCH_WRK2_STRM$50$`:    {thisTerm[0]},
+		}))
+		if err != nil {
+			return nil, "", fmt.Errorf("postTerm\n%v", err)
+		}
+		if err := s.parseBoot2(icsid); err != nil {
+			return nil, "", fmt.Errorf("parseBoot2\n%v", err)
+		}
+		if err = s.equalErr(termString); err != nil {
+			return nil, "", fmt.Errorf("termString\n%v", err)
+		}
+		return c, icsid, nil
+	}
+	s, err = responseToParser(c.PostForm(cusis, url.Values{
 		"ICSID":    {icsid},
 		"ICAction": {"CU_RC_TMSR801_SUBJECT$prompt"},
 	}))
@@ -352,180 +371,34 @@ func crawlSubject(career, term int) ([][2]string, error) {
 	return subjects, nil
 }
 
-func crawlSubjects() error {
-	type resultS struct {
-		c, t int
-		s    [][2]string
-	}
-	results := make(chan resultS)
-	errs := make(chan error, 10)
-	jobs := make(chan [2]int)
-	var wg sync.WaitGroup
-	wg.Add(10)
-	for i := 0; i < 10; i++ {
-		go func() {
-			defer wg.Done()
-			for job := range jobs {
-				for retry := 0; ; retry++ {
-					s, err := crawlSubject(job[0], job[1])
-					if err == nil {
-						results <- resultS{job[0], job[1], s}
-						break
-					}
-					err = fmt.Errorf(
-						"crawlSubjects(%v, %v): %v",
-						db.careers[job[0]].slug,
-						db.terms[job[1]].en,
-						err,
-					)
-					if retry == 3 {
-						errs <- err
-						return
-					}
-					log.Printf("retry %v: %v", retry, err)
-				}
-			}
-		}()
-	}
-	go func() {
-		defer func() {
-			close(jobs)
-			wg.Wait()
-			close(results)
-			close(errs)
-		}()
-		for c := range db.careers {
-			for t := range db.terms {
-				select {
-				case err := <-errs:
-					errs <- err
-					return
-				case jobs <- [2]int{c, t}:
-				}
-			}
-		}
-	}()
-	var careerTerms []careerTermS
-	var subjects []subjectS
-	m := make(map[[2]string]int)
-	for r := range results {
-		var x []int
-		for _, v := range r.s {
-			if _, ok := m[v]; !ok {
-				m[v] = len(subjects)
-				subjects = append(subjects, subjectS{v[0], v[1], nil})
-			}
-			x = append(x, m[v])
-		}
-		careerTerms = append(careerTerms, careerTermS{r.c, r.t, x})
-	}
-	if err := <-errs; err != nil {
-		return err
-	}
-	db.subjects = subjects
-	db.careerTerms = careerTerms
-	return nil
-}
-
-func boot() (*http.Client, *parser, error) {
-	j, err := cookiejar.New(nil)
-	if err != nil {
-		return nil, nil, err
-	}
-	var c = &http.Client{Jar: j}
-	s, err := responseToParser(c.Get(cusis))
-	if err != nil {
-		return nil, nil, err
-	}
-	return c, s, nil
-}
-
-func crawlTerms() error {
-	c, s, err := boot()
-	if err != nil {
-		return fmt.Errorf("boot: %v", err)
-	}
-	icsid, err := s.parseBoot()
-	if err != nil {
-		return fmt.Errorf("parseBoot\n%v", err)
-	}
-	termString := string(s.s)
-	en, err := s.parseTerms()
-	if err != nil {
-		return fmt.Errorf("parseTerms\n%v", err)
-	}
-	s, err = responseToParser(c.PostForm(cusis, url.Values{
-		"ICSID":       {icsid},
-		"#ICDataLang": {"ZHT"},
-		"ICAction":    {"#ICDataLang"},
-	}))
-	if err != nil {
-		return fmt.Errorf("post ZHT err: %v", err)
-	}
-	ch, err := s.parseTermsCH(icsid)
-	if err != nil {
-		return fmt.Errorf("parseTermsCH err: %v", err)
-	}
-	if len(en) != len(ch) {
-		return fmt.Errorf("len(en) != len(ch)\n%v\n%v", en, ch)
-	}
-	var terms []termS
-	for _, u := range en {
-		for _, v := range ch {
-			if u[0] == v[0] {
-				terms = append(terms, termS{u[0], u[1], v[1], nil})
-				break
-			}
-		}
-	}
-	if len(terms) != len(en) {
-		return fmt.Errorf("differ en ch\n%v\n%v", en, ch)
-	}
-	db.terms = make([]termS, len(terms))
-	copy(db.terms, terms)
-	for i, v := range db.terms {
-		db.terms[i].en = strings.TrimSpace(v.en)
-	}
-	reboot = func(career, term int) (*http.Client, string, error) {
-		c, s, err := boot()
+func crawl() {
+	var prevWorkers int
+	var prevDuration time.Duration
+	workers := 64
+	for {
+		subjects, err := crawlSubjects()
 		if err != nil {
-			return nil, "", err
+			writeLogs <- fmt.Sprintf("crawlSubjects err: %v", err)
+			continue
 		}
-		icsid, err := s.parseBoot()
-		if err != nil {
-			return nil, "", fmt.Errorf("parseBoot\n%v", err)
+		for {
+			t := time.Now()
+			if err = crawlCourses(subjects, workers); err != nil {
+				writeLogs <- fmt.Sprintf("crawlCourses err: %v", err)
+				continue
+			}
+			duration := time.Since(t)
+			writeLogs <- fmt.Sprintf("%v workers, %v seconds\n", workers, duration.Seconds())
+			if prevWorkers == 0 {
+				workers, prevWorkers = workers+1, workers
+			} else if prevDuration < duration {
+				workers, prevWorkers = prevWorkers, workers
+			} else if prevWorkers < workers {
+				workers, prevWorkers = workers+1, workers
+			} else {
+				workers, prevWorkers = workers-1, workers
+			}
+			prevDuration = duration
 		}
-		if err = s.equalErr(termString); err != nil {
-			return nil, "", fmt.Errorf("termString\n%v", err)
-		}
-		s, err = responseToParser(c.PostForm(cusis, url.Values{
-			"ICSID":                       {icsid},
-			"ICAction":                    {"CLASS_SRCH_WRK2_STRM$50$"},
-			"CLASS_SRCH_WRK2_ACAD_CAREER": {db.careers[career].slug},
-			"CLASS_SRCH_WRK2_STRM$50$":    {terms[term].slug},
-		}))
-		if err != nil {
-			return nil, "", fmt.Errorf("post career term err: %v", err)
-		}
-		careerOption := toCareerOption(career, db.careers)
-		termOption := toTermOption(term, terms)
-		if err := s.parseCareerTerm(icsid, careerOption, termOption); err != nil {
-			return nil, "", fmt.Errorf("parseCareerTerm\n%v", err)
-		}
-		return c, icsid, nil
 	}
-	return nil
-}
-
-func crawl() error {
-	if err := crawlTerms(); err != nil {
-		return fmt.Errorf("crawlTerms err: %v", err)
-	}
-	if err := crawlSubjects(); err != nil {
-		return fmt.Errorf("crawlSubjects err: %v", err)
-	}
-	if err := crawlCourses(); err != nil {
-		return fmt.Errorf("crawlCourses err: %v", err)
-	}
-	return nil
 }

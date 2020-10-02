@@ -5,17 +5,27 @@ import (
 	"html"
 	"strconv"
 	"strings"
+	"time"
 )
 
-func (s *parser) parseCourseRow(cols16 bool, row int, subj, group string) (interface{}, error) {
+func (s *parser) parseCourseRow(row int, subj, group string) (ret interface{}, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(parseError); ok {
+				err = e.error
+			} else {
+				panic(r)
+			}
+		}
+	}()
 	class := [2]string{
 		`class='PSLEVEL1GRIDODDROW'`,
 		`class='PSLEVEL1GRIDEVENROW'`,
 	}[row%2]
 	rowString := strconv.Itoa(row)
-	tabindex1 := strconv.Itoa(row*6 + 38)
-	tabindex2 := strconv.Itoa(row*6 + 39)
-	tabindex3 := strconv.Itoa(row*6 + 40)
+	tabindex1 := strconv.Itoa(row*6 + 36)
+	tabindex2 := strconv.Itoa(row*6 + 37)
+	tabindex3 := strconv.Itoa(row*6 + 38)
 	emptyRowHead := `<tr valign='center'>
 <td align='left'  ` + class + `  height='15'>
 &nbsp;
@@ -76,24 +86,9 @@ func (s *parser) parseCourseRow(cols16 bool, row int, subj, group string) (inter
 &nbsp;
 </td>
 `
-	if !cols16 {
-		emptyRowBody = `<td align='left'  ` + class + ` >
-&nbsp;
-</td>
-<td align='left'  ` + class + ` >
-&nbsp;
-</td>
-<td align='left'  ` + class + ` >
-&nbsp;
-</td>
-<td align='left'  ` + class + ` >
-&nbsp;
-</td>
-`
-	}
 	beforeQuota1 := `<td align='left'  ` + class + ` >
 <span  class='PSHYPERLINKDISABLED' >
-` //' style="color:dimgray;" >
+`
 	quota1 := `</span>
 </td>
 `
@@ -156,245 +151,126 @@ func (s *parser) parseCourseRow(cols16 bool, row int, subj, group string) (inter
 	var rowHead rowHeadS
 	var rowBody rowBodyS
 	var rowFoot rowFootS
-	var err error
-	parseRowFoot := func() error {
-		if err = s.spanErr(beforePeriod); err != nil {
-			return err
+	parseRowFoot := func() {
+		s.spanPanic(`before period`, beforePeriod)
+		var p, r, d string
+		p = s.splitPanic(`period`, period)
+		r = s.splitPanic(`room`, room)
+		d = s.splitPanic(`date`, date)
+		if p != "TBA" {
+			if len(p) != 20 {
+				panic(parseError{fmt.Errorf("p %v", p)})
+			}
+			if p[3:5] == "00" || p[13:15] == "00" {
+				panic(parseError{fmt.Errorf("p 12:00 %v", p)})
+			}
+			start, err := time.ParseInLocation("03:04PM", p[3:10], hongKong)
+			if err != nil {
+				panic(parseError{fmt.Errorf("p start %v: %v", p[3:10], err)})
+			}
+			end, err := time.ParseInLocation("03:04PM", p[13:], hongKong)
+			if err != nil {
+				panic(parseError{fmt.Errorf("p end %v: %v", p[3:10], err)})
+			}
+			if start.Unix() >= end.Unix() {
+				panic(parseError{fmt.Errorf("p %v >= %v: %v", start, end, p)})
+			}
+			rowFoot.weekday = p[:2]
+			rowFoot.period = []time.Time{start, end}
 		}
-		if cols16 {
-			if !s.span("TBA") {
-				if t, err := s.takeErr(20); err == nil {
-					rowFoot.period = &t
-				} else {
-					return err
-				}
+		rowFoot.room = r
+		if d != "TBA" {
+			if len(d) != 23 {
+				panic(parseError{fmt.Errorf("d %v", d)})
 			}
-			if err = s.spanErr(period); err != nil {
-				return err
+			start, err := time.ParseInLocation("02/01/2006", d[:10], hongKong)
+			if err != nil {
+				panic(parseError{fmt.Errorf("d start %v: %v", d[:10], err)})
 			}
-			if !s.span("TBA") {
-				if t, err := s.splitErr(room); err == nil {
-					rowFoot.room = &t
-				} else {
-					return err
-				}
-			} else if err := s.spanErr(room); err != nil {
-				return err
+			end, err := time.ParseInLocation("02/01/2006", d[13:], hongKong)
+			if err != nil {
+				panic(parseError{fmt.Errorf("d end %v: %v", d[13:], err)})
 			}
-			if !s.span("TBA") {
-				if t, err := s.takeErr(23); err == nil {
-					rowFoot.date = &t
-				} else {
-					return err
-				}
-			}
-			if err = s.spanErr(date); err != nil {
-				return err
-			}
-		} else {
-			if !s.span("TBA") {
-				if t, err := s.takeErr(23); err == nil {
-					rowFoot.date = &t
-				} else {
-					return err
-				}
-			}
-			if err = s.spanErr(date); err != nil {
-				return err
-			}
-			if !s.span("TBA") {
-				if t, err := s.takeErr(20); err == nil {
-					rowFoot.period = &t
-				} else {
-					return err
-				}
-			}
-			if err = s.spanErr(period); err != nil {
-				return err
-			}
-			if !s.span("TBA") {
-				if t, err := s.splitErr(room); err == nil {
-					rowFoot.room = &t
-				} else {
-					return err
-				}
-			} else if err := s.spanErr(room); err != nil {
-				return err
-			}
+			rowFoot.date = []time.Time{start, end}
 		}
 		if s.span("Yes") {
 			rowFoot.add = true
-		} else if err = s.spanErr("&nbsp;"); err != nil {
-			return err
+		} else {
+			s.spanPanic(`before add`, "&nbsp;")
 		}
-		if err = s.spanErr(add); err != nil {
-			return err
-		}
+		s.spanPanic(`add`, add)
 		if s.span("Yes") {
 			rowFoot.drop = true
-		} else if err = s.spanErr("&nbsp;"); err != nil {
-			return err
-		}
-		if err = s.spanErr(drop); err != nil {
-			return err
-		}
-		return nil
-	}
-	parseRowBody := func(group string) error {
-		if cols16 {
-			if err = s.spanErr(beforeVacancy); err != nil {
-				return err
-			}
-			if t, err := s.splitErr(vacancy); err == nil {
-				if rowBody.vacancy, err = strconv.Atoi(t); err != nil {
-					return err
-				}
-			} else {
-				return err
-			}
-		}
-		if err = s.spanErr(beforeComponent); err != nil {
-			return err
-		}
-		if rowBody.component, err = s.splitErr(component); err != nil {
-			return err
-		}
-		if err := s.spanErr(group); err != nil {
-			return err
-		}
-		if rowBody.section, err = s.splitErr(section); err != nil {
-			return err
-		}
-		if rowBody.language, err = s.splitErr(language); err != nil {
-			return err
-		}
-		if err = parseRowFoot(); err != nil {
-			return fmt.Errorf("parseRowFoot\n%v", err)
-		}
-		rowBody.rowFoot = []rowFootS{rowFoot}
-		if err = s.spanErr(beforeDept); err != nil {
-			return err
-		}
-		if rowBody.dept, err = s.splitErr(dept); err != nil {
-			return err
-		}
-		return nil
-	}
-	parseRowHead := func() error {
-		if err = s.spanErr(head); err != nil {
-			return err
-		}
-		if rowHead.code, err = s.takeErr(4); err != nil {
-			return err
-		}
-		if rowHead.group, err = s.splitErr(code); err != nil {
-			return err
-		}
-		if rowHead.nbr, err = s.takeErr(4); err != nil {
-			return err
-		}
-		if err = s.spanErr(nbr); err != nil {
-			return err
-		}
-		if s.span(beforeTitle1) {
-			if t, err := s.splitErr(title); err == nil {
-				rowHead.title = html.UnescapeString(t)
-			} else {
-				return err
-			}
 		} else {
-			if err = s.spanErr(beforeTitle2); err != nil {
-				return err
-			}
+			s.spanPanic(`before drop`, "&nbsp;")
+		}
+		s.spanPanic(`drop`, drop)
+	}
+	parseRowBody := func(group string) {
+		s.spanPanic(`before vacancy`, beforeVacancy)
+		rowBody.vacancy = s.splitIntPanic(`vacancy`, vacancy)
+		s.spanPanic(`before component`, beforeComponent)
+		rowBody.component = s.splitPanic(`component`, component)
+		s.spanPanic(`group`, group)
+		rowBody.section = s.splitPanic(`section`, section)
+		rowBody.language = s.splitPanic(`language`, language)
+		parseRowFoot()
+		rowBody.rowFoots = []rowFootS{rowFoot}
+		s.spanPanic(`before dept`, beforeDept)
+		rowBody.dept = s.splitPanic(`dept`, dept)
+	}
+	parseRowHead := func() {
+		s.spanPanic(`before code`, head)
+		rowHead.code = s.takePanic(`code`, 4)
+		rowHead.group = s.splitPanic(`group`, code)
+		rowHead.nbr = s.splitPanic(`nbr`, nbr)
+		if s.span(beforeTitle1) {
+			t := s.splitPanic(`title`, title)
+			rowHead.title = html.UnescapeString(t)
+		} else {
+			s.spanPanic(`before title2`, beforeTitle2)
 			key := s.takeRune()
-			if err = s.spanErr(beforeTitle3); err != nil {
-				return err
-			}
-			t, err := s.splitErr(title)
-			if err != nil {
-				return err
-			}
+			s.spanPanic(`before title3`, beforeTitle3)
+			t := s.splitPanic(`title`, title)
 			rowHead.title = html.UnescapeString(strings.Replace(t, `<u>`+key+`</u>`, key, 1))
 		}
-		if rowHead.units, err = s.splitErr(units); err != nil {
-			return err
-		}
-		if ts, err := s.splitErr(teachers); err == nil {
-			for _, t := range strings.Split(ts, `<br />`) {
-				t = strings.TrimSpace(t)
-				if t == `-` {
-					continue
-				}
-				if !strings.HasPrefix(t, `- `) {
-					return fmt.Errorf(
-						"mismatch teacher\n%v %v\n%v",
-						[]byte(`- `),
-						[]byte(t),
-						rowHead.teachers,
-					)
-				}
-				t = t[2:]
-				rowHead.teachers = append(rowHead.teachers, t)
+		rowHead.units = s.splitPanic(`units`, units)
+		for _, t := range strings.Split(s.splitPanic(`teachers`, teachers), `<br />`) {
+			t = strings.TrimSpace(t)
+			if t == `-` {
+				continue
 			}
-		} else {
-			return err
+			if !strings.HasPrefix(t, `- `) {
+				panic(parseError{fmt.Errorf(
+					"mismatch teacher\n%v",
+					rowHead.teachers,
+				)})
+			}
+			t = t[2:]
+			rowHead.teachers = append(rowHead.teachers, t)
 		}
 		if s.span(beforeQuota1) {
-			if t, err := s.splitErr(quota1); err == nil {
-				if rowBody.quota, err = strconv.Atoi(t); err != nil {
-					return err
-				}
-			} else {
-				return err
-
-			}
-		} else if err = s.spanErr(beforeQuota2); err == nil {
-			if t, err := s.splitErr(quota2); err == nil {
-				if rowBody.quota, err = strconv.Atoi(t); err != nil {
-					return err
-				}
-				rowHead.reserves = true
-			} else {
-				return err
-
-			}
+			rowBody.quota = s.splitIntPanic(`quota1`, quota1)
 		} else {
-			return err
+			s.spanPanic(`before quota2`, beforeQuota2)
+			rowBody.quota = s.splitIntPanic(`quota2`, quota2)
+			rowHead.reserves = []reserveS{}
 		}
-		if err = parseRowBody(rowHead.group); err != nil {
-			return fmt.Errorf("parseRowBody\n%v", err)
-		}
-		rowHead.rowBody = []rowBodyS{rowBody}
+		parseRowBody(rowHead.group)
+		rowHead.rowBodys = []rowBodyS{rowBody}
 		rowHead.row = row
-		return nil
 	}
 	if s.span(emptyRowHead) {
 		if s.span(emptyRowBody) {
-			if err = parseRowFoot(); err != nil {
-				return nil, fmt.Errorf("parseRowFoot\n%v", err)
-			}
-			if err = s.spanErr(emptyDept); err != nil {
-				return nil, fmt.Errorf("emptyDeptn%v", err)
-			}
+			parseRowFoot()
+			s.spanPanic(`empty dept`, emptyDept)
 			return rowFoot, nil
 		}
-		if err = s.spanErr(beforeQuota1); err != nil {
-			return nil, fmt.Errorf("beforeQuota1\n%v", err)
-		}
-		if t, err := s.splitErr(quota1); err == nil {
-			if rowBody.quota, err = strconv.Atoi(t); err != nil {
-				return nil, fmt.Errorf("quota1: %v", err)
-			}
-		} else {
-			return nil, fmt.Errorf("quota1\n%v", err)
-		}
-		if err = parseRowBody(group); err != nil {
-			return nil, fmt.Errorf("parseRowBody\n%v", err)
-		}
+		s.spanPanic(`before quota1`, beforeQuota1)
+		rowBody.quota = s.splitIntPanic(`quota1`, quota1)
+		parseRowBody(group)
 		return rowBody, nil
 	}
-	if err = parseRowHead(); err != nil {
-		return nil, fmt.Errorf("parseRowHead\n%v", err)
-	}
+	parseRowHead()
 	return rowHead, nil
 }

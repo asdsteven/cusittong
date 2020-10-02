@@ -276,6 +276,15 @@ nResubmit=0;
 			{`&amp;`, `&`},
 			{`&#039;`, `'`},
 			{`R&amp;W`, `RW`},
+			{`E&amp;H`, `EH`},
+			{`Cul&amp;Soc`, `CulSoc`},
+			{`Health&amp;Healthy`, `HealthHealthy`},
+			{`Sexuality&amp;Race`, `SexualityRace`},
+			{`Matrices&amp;Lin`, `MatricesLin`},
+			{` &amp;T `, ` T `},
+			{` T&amp;P `, ` TP `},
+			{` Sch&#039;n&amp;EDU `, ` Sch'nEDU `},
+			{` Women&amp;Gender `, ` WomenGender `},
 		}
 		var u []byte
 		for i := 0; i < len(t); i++ {
@@ -318,6 +327,7 @@ nResubmit=0;
 		if err != nil {
 			return nil, fmt.Errorf("beforeQuota\n%v", err)
 		}
+		major = strings.Replace(major, "&amp;", "&", -1)
 		t, err := s.splitErr(beforeEnrollClass + class + beforeEnroll)
 		if err != nil {
 			return nil, fmt.Errorf("beforeEnroll\n%v", err)
@@ -342,7 +352,7 @@ nResubmit=0;
 	if err := s.spanErr(beforeLast); err != nil {
 		return nil, fmt.Errorf("beforeLast\n%v", err)
 	}
-	if err := s.spanErr(strconv.Itoa(44 + rows*2)); err != nil {
+	if err := s.spanErr(strconv.Itoa(42 + rows*2)); err != nil {
 		return nil, fmt.Errorf("lastTabindex\n%v", err)
 	}
 	if err := s.equalErr(last); err != nil {

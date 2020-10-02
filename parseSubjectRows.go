@@ -50,6 +50,7 @@ func (s *parser) parseSubjectRows(rows, tabindex int) ([][2]string, error) {
 		if err != nil {
 			return [2]string{}, fmt.Errorf("full\n%v", err)
 		}
+		full = strings.Replace(full, "&amp;", "&", -1)
 		return [2]string{slug, full}, nil
 	}
 	subject, err := parseRow(0, tabindex, nameFirst)

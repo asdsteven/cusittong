@@ -1,5 +1,12 @@
 package main
 
+import (
+	"errors"
+)
+
+var errCusis = errors.New("cusisError")
+var errCusisAuthorize = errors.New("cusisAuthorizeError")
+
 const cusisError = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"`
 
 const cusisAuthorizeError = `<html dir=ltr lang=en>
